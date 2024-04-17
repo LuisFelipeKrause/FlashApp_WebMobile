@@ -1,0 +1,23 @@
+* {
+    background-color: #151F35;
+}
+
+#main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-content {
+    padding: 10px;
+}
+
+#content {
+    padding: 10px;
+    color: white;
+    background-color: #0D1526;
+    border-radius: 20px;
+}
+#content input, label {
+    color: white;
+}
