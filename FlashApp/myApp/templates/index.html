@@ -20,18 +20,22 @@
     </header>
 
     <!--Corpo da tela-->
-    <div id="main-container">
-        <div id="main-content">
+    <div id="main-container-login">
+        <div id="main-content-login">
             <img src="../static/img/LogoV3.png" width="210" height="210" class="rounded mx-auto d-block">
 
-            <div id="content">
-                <form id="login-form" method="get">
-                    <label for="email">E-mail</label>
-                    <input type="text" name="email" placeholder="name@example.com">
+            <div id="content-login">
+                <h1>Sign in</h1>
+                <form id="form-login" method="get">
+                    <label for="email" class="form-label col-12">E-mail</label>
+                    <input type="text" name="email" class="form-control" placeholder="name@example.com">
 
-                    <label for="senha">Senha</label>
-                    <input type="password" name="senha" placeholder="********">
+                    <label for="senha" class="form-label col-12">Senha</label>
+                    <input type="password" class="form-control" name="senha" placeholder="********">
+
+                    <button type="submit" class="btn btn-success">Login</button>
                 </form>
+                <a href="">Não possui uma conta?</a>
             </div>
         </div>
     </div>
