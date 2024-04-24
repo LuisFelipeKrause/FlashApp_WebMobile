@@ -8,6 +8,16 @@ from django.conf import settings
 class Home(View):
     def get(self, request):
         return render(request, 'home.html')
+    
+
+class Cadastro(View):
+    def get(self, request):
+        return render(request, 'cadastro.html')
+    
+    def post(self, request):
+        print(request)
+        return HttpResponse(request)
+
 
 class Login(View):
     def get(self, request):

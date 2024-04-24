@@ -2,7 +2,8 @@
     background-color: #151F35;
 }
 
-/*#main-container-login {
+/*PÁGINA DE LOGIN*/
+#main-container-login {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,8 +55,64 @@
     margin-top: 5vh;
     margin-bottom: 12vh;
     width: 30vh;
-}*/
+}
 
+/*PÁGINA DE CADASTRO*/
+#main-container-signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-content-signup {
+    padding: 10px;
+}
+
+#content-signup {
+    width: 50vh;
+    padding: 10px;
+    margin-top: 3vh;
+    color: white;
+    background-color: #0D1526;
+    border-radius: 50px;
+    text-align: center;
+}
+#content-signup form, h1 {
+    color: white;
+    background-color: #0D1526;
+    margin-left: 5vh;
+    margin-right: 5vh;
+    margin-top: 3vh;
+}
+#content-signup label {
+    font-size: larger;
+    background-color: #0D1526;
+    color: white;
+    margin-top: 3vh;
+    text-align: left;
+}
+#content-signup input {
+    font-size: larger;
+    height: 6vh;
+    background-color: #151F35;
+    border: #151F35;
+    color: white;
+}
+#content-signup input::placeholder {
+    color: rgba(255, 255, 255, 0.37);
+}
+#content-signup a {
+    color: gray;
+}
+#content-signup button {
+    background-color: #23DA72;
+    font-size:x-large;
+    margin-top: 5vh;
+    margin-bottom: 8vh;
+    width: 30vh;
+}
+
+/*PÁGINA HOME*/
 #main-container-home {
     height: 100vh;
     display: flex;
