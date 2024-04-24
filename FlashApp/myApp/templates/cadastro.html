@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %} <!--Carrega os arquivos de 'static'-->
+    {% load admin_urls %}  <!--Carrega as urls do arquivo urls.py-->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/styleSignup.css' %}">
+
+    <!-- Bootstrap Framework -->
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap-5.3.3/js/bootstrap.min.js' %}"></script>
+    
+</head>
+<body>
+    <!--Cabeçalho-->
+    <header>
+
+    </header>
+
+    <!--Corpo da tela-->
+    <div id="main-container-signup">
+        <div id="main-content-signup">
+            <img src="../static/img/LogoV3.png" width="210" height="210" class="rounded mx-auto d-block">
+
+            <div id="content-signup">
+                <h1>Sign up</h1>
+                <form id="form-signup" method="post">
+                    {% csrf_token %}
+                    <label for="nome-usuario" class="form-label col-12">E-mail</label>
+                    <input type="text" name="nome-usuario" class="form-control" placeholder="Usuario Example" value="Luis Felipe K">
+
+                    <label for="email" class="form-label col-12">E-mail</label>
+                    <input type="text" name="email" class="form-control" placeholder="name@example.com" value="felipekrause">
+
+                    <label for="senha" class="form-label col-12">Senha</label>
+                    <input type="password" class="form-control" name="senha" placeholder="********" value="105238YEef">
+
+                    <button type="submit" class="btn btn-success">Sign Up</button>
+                </form>
+
+                {% if mensagem %}
+                <div class="alert alert-danger" role="alert">
+                    {{ mensagem }}
+                </div>
+                {% endif %}
+
+                <a href="{% url 'login' %}">Já tenho uma conta</a>
+            </div>
+        </div>
+    </div>
+
+    <!--Rodapé-->
+    <footer>
+
+    </footer>
+</body>
+</html>
