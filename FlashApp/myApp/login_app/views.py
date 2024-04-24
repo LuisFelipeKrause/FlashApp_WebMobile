@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib.auth import authenticate, login, logout
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 from django.http import HttpResponse
 from django.conf import settings
 
@@ -15,8 +17,20 @@ class Cadastro(View):
         return render(request, 'cadastro.html')
     
     def post(self, request):
-        print(request)
-        return HttpResponse(request)
+        email = request.POST.get('email')
+
+        try:
+            validate_email(email)
+        except ValidationError:
+            return render(request, 'cadastro.html', {'mensagem': 'Digite um e-mail válido'})
+        
+        userName = request.POST.get('nome-usuario')
+        senha = request.POST.get('senha')
+
+        # Criar registro de usuário no banco de dados
+    
+        return HttpResponse((f'Email: {email}\n Username: {userName}\n Senha: {senha}'))
+        # return redirect('/decks')
 
 
 class Login(View):

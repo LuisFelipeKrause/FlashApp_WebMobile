@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
     {% load static %} <!--Carrega os arquivos de 'static'-->
+    {% load admin_urls %}  <!--Carrega as urls do arquivo urls.py-->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +49,7 @@
                 </div>
                 {% endif %}
 
-                <a href="">Já tenho uma conta</a>
+                <a href="{% url 'login' %}">Já tenho uma conta</a>
             </div>
         </div>
     </div>
