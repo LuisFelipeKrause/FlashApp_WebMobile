@@ -8,6 +8,12 @@
     align-items: center;
 }
 
+#main-container-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #main-content-login {
     padding: 10px;
 }
@@ -43,7 +49,7 @@
     color: white;
 }
 #content-login input::placeholder {
-    color: rgba(255, 255, 255, 0.712);
+    color: rgba(255, 255, 255, 0.37);
 }
 #content-login a {
     color: gray;
@@ -55,3 +61,4 @@
     margin-bottom: 12vh;
     width: 30vh;
 }
+

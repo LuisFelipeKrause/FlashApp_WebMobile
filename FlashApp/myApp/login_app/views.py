@@ -1,6 +1,42 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views.generic import View
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
+from django.conf import settings
 
 # Create your views here.
+class Home(View):
+    def get(self, request):
+        return render(request, 'home.html')
 
-def index(request):
-    return render(request, 'index.html')
+class Login(View):
+    def get(self, request):
+        contexto = {'mensagem': ''}
+        if not request.user.is_authenticated:  # Verifica se há uma sessão
+            return render(request, 'login.html', contexto)  # Se não houver sessão, ele renderiza a página de login
+        else:
+            return HttpResponse('Usuário já autenticado!')  
+            # return redirect('/decks')  # Se houver sessão, ele redireciona para a página inicial da aplicação
+    
+    def post(self, request):
+        # Obtém as credenciais da autenticação do formulário
+        usuario = request.POST.get('email', None)
+        senha = request.POST.get('senha', None)
+        
+        # Verifica as credenciais de autenticação fornecidas
+        user = authenticate(request, username=usuario, password=senha)
+        if user is not None:
+            # Verifica se o usuário ainda está ativo no sistema
+            if user.is_active:
+                login(request, user)  # Se estiver tudo correto para o login, uma sessão é iniciada
+                return HttpResponse('Usuário autenticado com sucesso!')
+                # return redirect('/decks')  # Se o usuário constar no BD e estiver ativo, ele redireciona para a página inicial (isso é o login)
+            return render(request, 'login.html', {'mensagem': 'Usuário inativo'})
+        return render(request, 'login.html', {'mensagem': 'Usuário ou senha incorretos'})
+    
+
+class Logout(View):
+    def get(self, request):
+        logout(request)  # Encerra a sessão
+        return redirect(settings.LOGIN_URL)  # Essa constante LOGIN_URL foi definida no arquivo settings.py
+    

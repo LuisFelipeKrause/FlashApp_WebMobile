@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    {% load static %} <!--Carrega os arquivos de 'static'-->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign in</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
     <!-- Bootstrap Framework -->
-    <link rel="stylesheet" href="../static/css/bootstrap.css">
-    <script src="../static/js/bootstrap.js" defer></script>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap-5.3.3/js/bootstrap.min.js' %}"></script>
     
 </head>
 <body>
@@ -26,15 +28,23 @@
 
             <div id="content-login">
                 <h1>Sign in</h1>
-                <form id="form-login" method="get">
+                <form id="form-login" method="post">
+                    {% csrf_token %}
                     <label for="email" class="form-label col-12">E-mail</label>
-                    <input type="text" name="email" class="form-control" placeholder="name@example.com">
+                    <input type="text" name="email" class="form-control" placeholder="name@example.com" value="felipekrause">
 
                     <label for="senha" class="form-label col-12">Senha</label>
-                    <input type="password" class="form-control" name="senha" placeholder="********">
+                    <input type="password" class="form-control" name="senha" placeholder="********" value="105238YEef">
 
                     <button type="submit" class="btn btn-success">Login</button>
                 </form>
+
+                {% if mensagem %}
+                <div class="alert alert-danger" role="alert">
+                    {{ mensagem }}
+                </div>
+                {% endif %}
+
                 <a href="">Não possui uma conta?</a>
             </div>
         </div>
