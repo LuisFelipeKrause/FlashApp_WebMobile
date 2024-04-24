@@ -17,11 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from login_app.views import Home, Cadastro, Login, Logout
+from deck_app.views import Decks
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Home.as_view(), name='index'),
     path('signup/', Cadastro.as_view(), name='signup'),
     path('login/', Login.as_view(), name='login'),
-    path('logout/', Logout.as_view(), name='logout')
+    path('logout/', Logout.as_view(), name='logout'),
+    path('decks/', Decks.as_view(), name='decks')
 ]

@@ -29,8 +29,8 @@ class Cadastro(View):
 
         # Criar registro de usuário no banco de dados
     
-        return HttpResponse((f'Email: {email}\n Username: {userName}\n Senha: {senha}'))
-        # return redirect('/decks')
+        # return HttpResponse((f'Email: {email}\n Username: {userName}\n Senha: {senha}'))
+        return redirect('/decks')
 
 
 class Login(View):
@@ -39,8 +39,8 @@ class Login(View):
         if not request.user.is_authenticated:  # Verifica se há uma sessão
             return render(request, 'login.html', contexto)  # Se não houver sessão, ele renderiza a página de login
         else:
-            return HttpResponse('Usuário já autenticado!')  
-            # return redirect('/decks')  # Se houver sessão, ele redireciona para a página inicial da aplicação
+            # return HttpResponse('Usuário já autenticado!')  
+            return redirect('/decks')  # Se houver sessão, ele redireciona para a página inicial da aplicação
     
     def post(self, request):
         # Obtém as credenciais da autenticação do formulário
@@ -53,8 +53,8 @@ class Login(View):
             # Verifica se o usuário ainda está ativo no sistema
             if user.is_active:
                 login(request, user)  # Se estiver tudo correto para o login, uma sessão é iniciada
-                return HttpResponse('Usuário autenticado com sucesso!')
-                # return redirect('/decks')  # Se o usuário constar no BD e estiver ativo, ele redireciona para a página inicial (isso é o login)
+                # return HttpResponse('Usuário autenticado com sucesso!')
+                return redirect('/decks')  # Se o usuário constar no BD e estiver ativo, ele redireciona para a página inicial (isso é o login)
             return render(request, 'login.html', {'mensagem': 'Usuário inativo'})
         return render(request, 'login.html', {'mensagem': 'Usuário ou senha incorretos'})
     
