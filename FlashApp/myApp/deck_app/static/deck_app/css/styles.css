@@ -1,0 +1,45 @@
+* {
+    background-color: #0D1526;
+}
+.hide {
+    display: none;
+}
+
+#main-container-decks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+#main-content-decks {
+    height: 90vh;
+    width: 180vh;
+    border-radius: 30px;
+    background-color: #151F35;
+}
+#linha-principal {
+    border-radius: 30px;
+    background-color: #151F35;
+    display: flex;
+    align-items: center;
+}
+#main-content-decks h1 {
+    margin-top: 3vh;
+    margin-left: 3vh;
+    color: white;
+    background-color: #151F35;
+}
+#btn-addDeck {
+    color: white;
+    height: 5vh;
+    width: 5vh;
+    margin-top: 3vh;
+    margin-left: 25vh;
+    font-size: xx-large;
+    border-color: #23DA72;
+    background-color: #23DA72;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.493);
+}
