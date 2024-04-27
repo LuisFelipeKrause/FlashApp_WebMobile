@@ -13,7 +13,7 @@ class Deck(models.Model):
     ultima_revisao = models.DateTimeField()
 
     def __str__(self):
-        return f'{self.titulo} - (A: {self.acertos}/E: {self.erros})'
+        return f'{self.titulo}'
     
 
 class Card(models.Model):

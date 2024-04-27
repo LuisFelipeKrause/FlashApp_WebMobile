@@ -47,3 +47,25 @@
     background-color: #169c50;
     border-color: #169c50;
 }
+#content-decks-list {
+    width: 50vh;
+    height: 78vh;
+    background-color:#151F35;
+    overflow-y: auto;
+}
+#btn-deck {
+    background-color: #23DA72;
+    border-color: #23DA72;
+    margin-left: 3vh;
+    margin-bottom: 1vh;
+    width: 45vh;
+    padding: 2vh;
+    text-align: left;
+    font-size: large;
+    font-weight: bold;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.493);
+}
+#btn-deck:hover {
+    background-color: #169c50;
+    border-color: #169c50;
+}

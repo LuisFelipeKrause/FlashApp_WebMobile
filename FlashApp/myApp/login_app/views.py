@@ -9,12 +9,12 @@ from django.conf import settings
 # Create your views here.
 class Home(View):
     def get(self, request):
-        return render(request, 'home.html')
+        return render(request, 'login_app/home.html')
     
 
 class Cadastro(View):
     def get(self, request):
-        return render(request, 'cadastro.html')
+        return render(request, 'login_app/cadastro.html')
     
     def post(self, request):
         email = request.POST.get('email')
@@ -22,20 +22,20 @@ class Cadastro(View):
         try:
             validate_email(email)
         except ValidationError:
-            return render(request, 'cadastro.html', {'mensagem': 'Digite um e-mail válido'})
+            return render(request, 'login_app/cadastro.html', {'mensagem': 'Digite um e-mail válido'})
         
         username = request.POST.get('nome-usuario')
         senha = request.POST.get('senha')
 
         usuario = User.objects.filter(email=email).first()
         if usuario:
-            return render(request, 'cadastro.html', {'mensagem': 'Já existe uma conta registrada com esse endereço de e-mail'})
+            return render(request, 'login_app/cadastro.html', {'mensagem': 'Já existe uma conta registrada com esse endereço de e-mail'})
         
         usuario = User.objects.create_user(username=username, email=email, password=senha)
         try:
             usuario.save()
         except:
-            return render(request, 'cadastro.html', {'mensagem': 'Houve algum erro no cadastro'})
+            return render(request, 'login_app/cadastro.html', {'mensagem': 'Houve algum erro no cadastro'})
     
         return redirect('/decks')
 
@@ -44,7 +44,7 @@ class Login(View):
     def get(self, request):
         contexto = {'mensagem': ''}
         if not request.user.is_authenticated:  # Verifica se há uma sessão
-            return render(request, 'login.html', contexto)  # Se não houver sessão, ele renderiza a página de login
+            return render(request, 'login_app/login.html', contexto)  # Se não houver sessão, ele renderiza a página de login
         else:
             return redirect('/decks')  # Se houver sessão, ele redireciona para a página inicial da aplicação
     
@@ -60,8 +60,8 @@ class Login(View):
             if user.is_active:
                 login(request, user)  # Se estiver tudo correto para o login, uma sessão é iniciada
                 return redirect('/decks')  # Se o usuário constar no BD e estiver ativo, ele redireciona para a página inicial (isso é o login)
-            return render(request, 'login.html', {'mensagem': 'Usuário inativo'})
-        return render(request, 'login.html', {'mensagem': 'Usuário ou senha incorretos'})
+            return render(request, 'login_app/login.html', {'mensagem': 'Usuário inativo'})
+        return render(request, 'login_app/login.html', {'mensagem': 'Usuário ou senha incorretos'})
     
 
 class Logout(View):

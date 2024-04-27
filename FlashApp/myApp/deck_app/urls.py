@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from deck_app.views import Decks
 
 urlpatterns = [
-    path('', views.index, name='index')
+    path('', Decks.as_view(), name='decks')
 ]
