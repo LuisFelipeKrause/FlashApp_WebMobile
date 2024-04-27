@@ -45,9 +45,5 @@
 }
 #btn-addDeck:hover {
     background-color: #169c50;
-}
-.btn-deck {
-    margin-left: 5vh;
-    background-color: #23DA72;
-    color: white;
+    border-color: #169c50;
 }

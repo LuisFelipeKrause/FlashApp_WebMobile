@@ -25,13 +25,13 @@
     <!--Corpo da tela-->
     <div id="main-container-signup">
         <div id="main-content-signup">
-            <img src="../static/login_app/img/LogoV3.png" width="210" height="210" class="rounded mx-auto d-block">
+            <img src="../static/login_app/img/LogoV3.png" width="150" height="150" class="rounded mx-auto d-block">
 
             <div id="content-signup">
                 <h1>Sign up</h1>
                 <form id="form-signup" method="post">
                     {% csrf_token %}
-                    <label for="nome-usuario" class="form-label col-12">E-mail</label>
+                    <label for="nome-usuario" class="form-label col-12">Nome</label>
                     <input type="text" name="nome-usuario" class="form-control" placeholder="Usuario Example" value="Luis Felipe K">
 
                     <label for="email" class="form-label col-12">E-mail</label>

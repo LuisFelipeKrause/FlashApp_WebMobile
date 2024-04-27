@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login_app.apps.LoginAppConfig',
-    'deck_app.apps.DeckAppConfig'
+    'deck_app.apps.DeckAppConfig',
+    'revisar_app.apps.RevisarAppConfig'
 ]
 
 MIDDLEWARE = [

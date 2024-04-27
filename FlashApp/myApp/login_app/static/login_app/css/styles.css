@@ -8,11 +8,9 @@
     justify-content: center;
     align-items: center;
 }
-
 #main-content-login {
     padding: 10px;
 }
-
 #content-login {
     width: 50vh;
     padding: 10px;
@@ -63,15 +61,12 @@
     justify-content: center;
     align-items: center;
 }
-
 #main-content-signup {
     padding: 10px;
 }
-
 #content-signup {
     width: 50vh;
     padding: 10px;
-    margin-top: 3vh;
     color: white;
     background-color: #0D1526;
     border-radius: 50px;
@@ -88,7 +83,7 @@
     font-size: larger;
     background-color: #0D1526;
     color: white;
-    margin-top: 3vh;
+    margin-top: 2vh;
     text-align: left;
 }
 #content-signup input {
@@ -108,7 +103,7 @@
     background-color: #23DA72;
     font-size:x-large;
     margin-top: 5vh;
-    margin-bottom: 8vh;
+    margin-bottom: 6vh;
     width: 30vh;
 }
 
@@ -120,11 +115,9 @@
     align-items: center;
     align-content: center;
 }
-
 #cartao-home {
     color: white;
 }
-
 #cartao-home img {
     border: 1px white solid;
 }
