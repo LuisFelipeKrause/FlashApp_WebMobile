@@ -3,7 +3,7 @@ from django.views.generic import View
 from django.contrib.auth import authenticate, login, logout
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from django.http import HttpResponse
+from django.contrib.auth.models import User
 from django.conf import settings
 
 # Create your views here.
@@ -24,12 +24,19 @@ class Cadastro(View):
         except ValidationError:
             return render(request, 'cadastro.html', {'mensagem': 'Digite um e-mail válido'})
         
-        userName = request.POST.get('nome-usuario')
+        username = request.POST.get('nome-usuario')
         senha = request.POST.get('senha')
 
-        # Criar registro de usuário no banco de dados
+        usuario = User.objects.filter(email=email).first()
+        if usuario:
+            return render(request, 'cadastro.html', {'mensagem': 'Já existe uma conta registrada com esse endereço de e-mail'})
+        
+        usuario = User.objects.create_user(username=username, email=email, password=senha)
+        try:
+            usuario.save()
+        except:
+            return render(request, 'cadastro.html', {'mensagem': 'Houve algum erro no cadastro'})
     
-        # return HttpResponse((f'Email: {email}\n Username: {userName}\n Senha: {senha}'))
         return redirect('/decks')
 
 
@@ -39,7 +46,6 @@ class Login(View):
         if not request.user.is_authenticated:  # Verifica se há uma sessão
             return render(request, 'login.html', contexto)  # Se não houver sessão, ele renderiza a página de login
         else:
-            # return HttpResponse('Usuário já autenticado!')  
             return redirect('/decks')  # Se houver sessão, ele redireciona para a página inicial da aplicação
     
     def post(self, request):
@@ -53,7 +59,6 @@ class Login(View):
             # Verifica se o usuário ainda está ativo no sistema
             if user.is_active:
                 login(request, user)  # Se estiver tudo correto para o login, uma sessão é iniciada
-                # return HttpResponse('Usuário autenticado com sucesso!')
                 return redirect('/decks')  # Se o usuário constar no BD e estiver ativo, ele redireciona para a página inicial (isso é o login)
             return render(request, 'login.html', {'mensagem': 'Usuário inativo'})
         return render(request, 'login.html', {'mensagem': 'Usuário ou senha incorretos'})
