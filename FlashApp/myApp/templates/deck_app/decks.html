@@ -16,14 +16,34 @@
 <body>
     <div id="main-container-decks">
         <div id="main-content-decks">
-            <div id="linha-principal">
-                <h1>Decks</h1>
-                <button id="btn-addDeck" class="btn btn-primary" type="submit">+</button>
+            <div id="esquerda">
+                <div id="linha-principal">
+                    <h1>Decks</h1>
+                    <button id="btn-addDeck" class="btn btn-primary" type="submit">+</button>
+                </div>
+                <div id="content-decks-list">
+                    {% for deck in decks %}
+                    <button id="btn-deck" type="button" class="btn btn-primary" data-bs-toggle="button">{{deck}}</button>
+                    {% endfor %}
+                </div>
             </div>
-            <div id="content-decks-list">
-                {% for deck in decks %}
-                <button id="btn-deck" type="button" class="btn btn-primary" data-bs-toggle="button">{{deck}}</button>
-                {% endfor %}
+            <div id="direita">
+                <div id="novo-deck" class="hide">
+                    <form action="" method="get">
+                        <label for="titulo-deck" class="form-label col-12">Título do Novo Deck</label>
+                        <input type="text" name="titulo-deck" class="form-control" placeholder="Título do novo Deck" required>
+
+                        <label for="descricao" class="form-label col-12">Descrição (opcional)</label>
+                        <textarea class="form-control" id="descricao" rows="5" placeholder="Descrição..."></textarea>
+
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-secondary">Cancelar</button>
+                    </form>
+                </div>
+
+                <div id="visao-geral-deck" class="hide">
+                    
+                </div>
             </div>
         </div>
     </div>

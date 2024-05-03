@@ -6,7 +6,6 @@ from deck_app.models import Deck
 # Create your views here.
 class Decks(View):
     def get(self, request):
-        print(request)
         contexto = {
             'decks': Deck.objects.all()
         }
