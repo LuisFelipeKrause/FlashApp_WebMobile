@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decks</title>
+
+    <!-- CSS -->
+    {% block importar_css %}{% endblock %}
+
+    <!-- Bootstrap Framework -->
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap-5.3.3/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+    {% block janela_principal %}
+    <div id="main-container-decks">
+        <div id="main-content-decks">
+            {% block conteudo %}
+            {% endblock %}
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

@@ -29,12 +29,23 @@
     color: white;
     background-color: #151F35;
 }
+#esquerda a {
+    margin: 0;
+    background-color: #151F35;
+}
+#btn-logout {
+    margin-top: 3vh;
+    margin-left: 16vh;
+    border-color: #23DA72;
+    background-color: #23DA72;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.493);
+}
 #btn-addDeck {
     color: white;
     height: 5vh;
     width: 5vh;
     margin-top: 3vh;
-    margin-left: 25vh;
+    margin-left: 2vh;
     font-size: xx-large;
     border-color: #23DA72;
     background-color: #23DA72;
@@ -43,13 +54,13 @@
     align-items: center;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.493);
 }
-#btn-addDeck:hover {
+#btn-addDeck:hover, #btn-logout:hover {
     background-color: #169c50;
     border-color: #169c50;
 }
 #content-decks-list {
     width: 50vh;
-    height: 78vh;
+    height: 79.5vh;
     background-color:#151F35;
     overflow-y: auto;
 }

@@ -1,51 +1,44 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decks</title>
+{% extends "../base.html" %}
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'deck_app/css/styles.css' %}">
+{% load static %}
+{% block importar_css %}<link rel="stylesheet" href="{% static 'deck_app/css/styles.css' %}">{% endblock %}
 
-    <!-- Bootstrap Framework -->
-    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.min.css' %}">
-    <script src="{% static 'bootstrap-5.3.3/js/bootstrap.min.js' %}"></script>
-</head>
-<body>
-    <div id="main-container-decks">
-        <div id="main-content-decks">
-            <div id="esquerda">
-                <div id="linha-principal">
-                    <h1>Decks</h1>
-                    <button id="btn-addDeck" class="btn btn-primary" type="submit">+</button>
-                </div>
-                <div id="content-decks-list">
-                    {% for deck in decks %}
-                    <button id="btn-deck" type="button" class="btn btn-primary" data-bs-toggle="button">{{deck}}</button>
-                    {% endfor %}
-                </div>
-            </div>
-            <div id="direita">
-                <div id="novo-deck" class="hide">
-                    <form action="" method="get">
-                        <label for="titulo-deck" class="form-label col-12">Título do Novo Deck</label>
-                        <input type="text" name="titulo-deck" class="form-control" placeholder="Título do novo Deck" required>
-
-                        <label for="descricao" class="form-label col-12">Descrição (opcional)</label>
-                        <textarea class="form-control" id="descricao" rows="5" placeholder="Descrição..."></textarea>
-
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                        <button type="button" class="btn btn-secondary">Cancelar</button>
-                    </form>
-                </div>
-
-                <div id="visao-geral-deck" class="hide">
-                    
-                </div>
-            </div>
-        </div>
+{% block conteudo %}
+<div id="esquerda">
+    <div id="linha-principal">
+        <h1>Decks</h1>
+        <a href="/logout"><button id="btn-logout" class="btn btn-primary"  type="button">Sair</button></a>
+        <button id="btn-addDeck" class="btn btn-primary" type="button">+</button>
+        
     </div>
-</body>
-</html>
+    <div id="content-decks-list">
+        {% for deck in decks %}
+        <button id="btn-deck" type="button" class="btn btn-primary" data-bs-toggle="button">{{deck}}</button>
+        {% endfor %}
+    </div>
+</div>
+<div id="direita">
+    {% if mensagem %}
+        <div class="alert alert-success" role="alert">
+            {{ mensagem }}
+        </div>
+    {% endif %}
+    <div id="novo-deck" class="">
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="titulo-deck" class="form-label col-12">Título do Novo Deck</label>
+            <input type="text" name="titulo-deck" class="form-control" placeholder="Título do novo Deck" required>
+    
+            <label for="descricao" class="form-label col-12">Descrição (opcional)</label>
+            <textarea class="form-control" id="descricao" rows="5" placeholder="Descrição..."></textarea>
+    
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-secondary">Cancelar</button>
+        </form>
+        
+    </div>
+    <div id="visao-geral-deck" class="hide">
+        
+    </div>
+</div>
+{% endblock %}

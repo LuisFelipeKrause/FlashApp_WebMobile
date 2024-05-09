@@ -10,3 +10,11 @@ class Decks(View):
             'decks': Deck.objects.all()
         }
         return render(request, 'deck_app/decks.html', context=contexto)
+    
+    def post(self, request):
+        contexto = {
+            'decks': Deck.objects.all(),
+            'mensagem': 'Deck cadastrado com sucesso'
+        }
+        return render(request, 'deck_app/decks.html', context=contexto)
+        
