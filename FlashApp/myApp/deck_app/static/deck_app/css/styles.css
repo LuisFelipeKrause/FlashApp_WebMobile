@@ -1,6 +1,3 @@
-* {
-    background-color: #0D1526;
-}
 .hide {
     display: none;
 }
@@ -10,6 +7,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: #0D1526;
 }
 #main-content-decks {
     display: flex;
@@ -22,20 +20,17 @@
     background-color: #151F35;
     display: flex;
     align-items: center;
+    border-radius: 30px;
 }
 #main-content-decks h1 {
     margin-top: 3vh;
     margin-left: 3vh;
     color: white;
     background-color: #151F35;
-}
-#esquerda a {
-    margin: 0;
-    background-color: #151F35;
+    border-radius: 20px;
 }
 #btn-logout {
     margin-top: 3vh;
-    margin-left: 16vh;
     border-color: #23DA72;
     background-color: #23DA72;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.493);
@@ -45,7 +40,7 @@
     height: 5vh;
     width: 5vh;
     margin-top: 3vh;
-    margin-left: 2vh;
+    margin-left: 25vh;
     font-size: xx-large;
     border-color: #23DA72;
     background-color: #23DA72;
@@ -63,6 +58,7 @@
     height: 79.5vh;
     background-color:#151F35;
     overflow-y: auto;
+    border-radius: 30px;
 }
 #btn-deck {
     background-color: #23DA72;
@@ -82,9 +78,8 @@
 }
 #novo-deck {
     margin-top: 4vh;
-    margin-left: 8vh;
     height: 50vh;
-    width: 70vh;
+    width: 90vh;
     padding: 3vh;
     border-radius: 20px;
     background-color: #23DA72;
@@ -97,6 +92,16 @@
 #novo-deck button {
     margin-top: 2vh;
 }
-#direita {
+#centro {
     background-color: #151F35;
+    width: 119vh;
+    display: flex;
+    justify-content: center;
+}
+#direita {
+    align-items: center;
+    text-align: center;
+}
+#direita button {
+    margin-top: 4vh;
 }

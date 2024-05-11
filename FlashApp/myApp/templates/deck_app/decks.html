@@ -7,7 +7,6 @@
 <div id="esquerda">
     <div id="linha-principal">
         <h1>Decks</h1>
-        <a href="/logout"><button id="btn-logout" class="btn btn-primary"  type="button">Sair</button></a>
         <button id="btn-addDeck" class="btn btn-primary" type="button">+</button>
         
     </div>
@@ -17,7 +16,7 @@
         {% endfor %}
     </div>
 </div>
-<div id="direita">
+<div id="centro">
     <div id="novo-deck" class="">
         <form action="" method="post">
             {% csrf_token %}
@@ -28,7 +27,7 @@
             <textarea class="form-control" name="descricao" id="descricao" rows="5" placeholder="Descrição..."></textarea>
     
             <button type="submit" class="btn btn-primary">Salvar</button>
-            <button type="button" class="btn btn-secondary">Cancelar</button>
+            <button type="reset" class="btn btn-secondary">Cancelar</button>
         </form>
         {% if mensagem %}
             <div class="alert alert-warning" role="alert">
@@ -39,5 +38,8 @@
     <div id="visao-geral-deck" class="hide">
         
     </div>
+</div>
+<div id="direita">
+    <a href="/logout"><button id="btn-logout" class="btn btn-primary"  type="button">Sair</button></a>
 </div>
 {% endblock %}

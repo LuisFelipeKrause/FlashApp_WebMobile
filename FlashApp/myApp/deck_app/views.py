@@ -37,7 +37,7 @@ class Decks(View):
             return render(request, 'deck_app/decks.html', context=contexto)
 
         contexto = {
-            'decks': Deck.objects.all(),
+            'decks': Deck.objects.filter(usuario_id=request.user.id).all(),
         }
         return render(request, 'deck_app/decks.html', context=contexto)
         
