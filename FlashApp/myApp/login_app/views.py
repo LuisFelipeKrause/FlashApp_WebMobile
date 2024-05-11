@@ -50,11 +50,21 @@ class Login(View):
     
     def post(self, request):
         # Obtém as credenciais da autenticação do formulário
-        usuario = request.POST.get('email', None)
+        email = request.POST.get('email', None)
         senha = request.POST.get('senha', None)
+
+        try:
+            validate_email(email)
+        except ValidationError:
+            return render(request, 'login_app/login.html', {'mensagem': 'Digite um e-mail válido'})
+
+        usuario = User.objects.filter(email=email).first()
+
+        if not usuario:
+            return render(request, 'login_app/login.html', {'mensagem': 'Usuário ou senha incorretos'})
         
         # Verifica as credenciais de autenticação fornecidas
-        user = authenticate(request, username=usuario, password=senha)
+        user = authenticate(request, username=usuario.username, password=senha)
         if user is not None:
             # Verifica se o usuário ainda está ativo no sistema
             if user.is_active:

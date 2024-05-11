@@ -13,16 +13,11 @@
     </div>
     <div id="content-decks-list">
         {% for deck in decks %}
-        <button id="btn-deck" type="button" class="btn btn-primary" data-bs-toggle="button">{{deck}}</button>
+        <a href="/"></a><button id="btn-deck" type="button" class="btn btn-primary" data-bs-toggle="button">{{deck}}</button>
         {% endfor %}
     </div>
 </div>
 <div id="direita">
-    {% if mensagem %}
-        <div class="alert alert-success" role="alert">
-            {{ mensagem }}
-        </div>
-    {% endif %}
     <div id="novo-deck" class="">
         <form action="" method="post">
             {% csrf_token %}
@@ -30,12 +25,16 @@
             <input type="text" name="titulo-deck" class="form-control" placeholder="Título do novo Deck" required>
     
             <label for="descricao" class="form-label col-12">Descrição (opcional)</label>
-            <textarea class="form-control" id="descricao" rows="5" placeholder="Descrição..."></textarea>
+            <textarea class="form-control" name="descricao" id="descricao" rows="5" placeholder="Descrição..."></textarea>
     
             <button type="submit" class="btn btn-primary">Salvar</button>
             <button type="button" class="btn btn-secondary">Cancelar</button>
         </form>
-        
+        {% if mensagem %}
+            <div class="alert alert-warning" role="alert">
+                {{ mensagem }}
+            </div>
+        {% endif %}
     </div>
     <div id="visao-geral-deck" class="hide">
         
