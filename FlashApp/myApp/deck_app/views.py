@@ -7,7 +7,7 @@ from deck_app.models import Deck
 class Decks(View):
     def get(self, request):
         contexto = {
-            'decks': Deck.objects.all()
+            'decks': Deck.objects.filter(usuario_id=request.user.id).all()
         }
         return render(request, 'deck_app/decks.html', context=contexto)
     
@@ -21,7 +21,7 @@ class Decks(View):
         novo_deck = Deck.objects.filter(usuario=request.user.id, titulo=titulo).first()
         if novo_deck:
             contexto = {
-                'decks': Deck.objects.all(),
+                'decks': Deck.objects.filter(usuario_id=request.user.id).all(),
                 'mensagem': 'Você já possui um deck com esse nome'
             }
             return render(request, 'deck_app/decks.html', context=contexto)
@@ -31,7 +31,7 @@ class Decks(View):
             novo_deck.save()
         except:
             contexto = {
-                'decks': Deck.objects.all(),
+                'decks': Deck.objects.filter(usuario_id=request.user.id).all(),
                 'mensagem': 'Não foi possível criar o deck',
             }
             return render(request, 'deck_app/decks.html', context=contexto)
