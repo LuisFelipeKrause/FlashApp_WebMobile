@@ -17,7 +17,7 @@
     </div>
 </div>
 <div id="centro">
-    <div id="novo-deck" class="">
+    <div id="novo-deck" class="hide">
         <form action="" method="post">
             {% csrf_token %}
             <label for="titulo-deck" class="form-label col-12">Título do Novo Deck</label>
@@ -35,8 +35,24 @@
             </div>
         {% endif %}
     </div>
-    <div id="visao-geral-deck" class="hide">
-        
+    <div id="visao-geral-deck" class="">
+        <div id="info-deck">
+            <div id="estatisticas-deck">
+                <h2>Acertos: </h2>
+                <h3>Erros: </h3>
+            </div>
+            <div id="btns-revisar-cards-deck">
+                <button class="btn btn-primary" type="submit">Começar Revisão
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                        <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+                    </svg>
+                </button>
+                <button class="btn btn-primary" type="submit">Cards por Sessão</button>
+            </div>
+            <div id="cards-deck">
+                
+            </div>
+        </div>
     </div>
 </div>
 <div id="direita">

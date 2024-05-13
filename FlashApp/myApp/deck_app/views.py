@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
-from deck_app.models import Deck
+from deck_app.models import Deck, Card
 
 
 # Create your views here.
@@ -41,3 +41,10 @@ class Decks(View):
         }
         return render(request, 'deck_app/decks.html', context=contexto)
         
+
+class Cards(View):
+    def get(self, request):
+        contexto = {
+            'cards': Card.objects.all(),
+        }
+        return render(request, 'deck_app/decks.html', context=contexto)
