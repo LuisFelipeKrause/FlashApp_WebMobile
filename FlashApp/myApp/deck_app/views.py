@@ -1,17 +1,40 @@
 from django.shortcuts import render
-from django.views.generic import View
+from django.utils import timezone
+from django.views.generic import View, ListView, CreateView, UpdateView
 from deck_app.models import Deck, Card
+from deck_app.forms import FormularioDeck, FormularioCard
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
 # Create your views here.
-class Decks(View):
-    def get(self, request):
+class ListarDecks(LoginRequiredMixin, ListView):
+    model = Deck
+    context_object_name = 'decks'
+    template_name = 'deck_app/decks.html'
+
+
+class CriarDecks(LoginRequiredMixin, CreateView):
+    model = Deck
+    form_class = FormularioDeck
+    template_name = 'deck_app/novoDeck.html'
+    success_url = reverse_lazy('decks')
+
+    def form_valid(self, form):
+        # Define manualmente o usuário para o deck antes de salvar
+        form.instance.usuario = self.request.user
+        form.instance.criado_em = timezone.now()
+        return super().form_valid(form)
+
+
+class Decks(LoginRequiredMixin, View):
+    """def get(self, request):
         contexto = {
             'decks': Deck.objects.filter(usuario_id=request.user.id).all()
         }
-        return render(request, 'deck_app/decks.html', context=contexto)
+        return render(request, 'deck_app/decks.html', context=contexto)"""
     
-    def post(self, request):
+    """def post(self, request):
         from django.utils import timezone
 
         titulo = request.POST.get('titulo-deck', None)
@@ -39,7 +62,7 @@ class Decks(View):
         contexto = {
             'decks': Deck.objects.filter(usuario_id=request.user.id).all(),
         }
-        return render(request, 'deck_app/decks.html', context=contexto)
+        return render(request, 'deck_app/decks.html', context=contexto)"""
         
 
 class Cards(View):

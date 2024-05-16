@@ -1,0 +1,25 @@
+{% extends "../base.html" %}
+
+{% load static %}
+{% block importar_css %}<link rel="stylesheet" href="{% static 'deck_app/css/styles.css' %}">{% endblock %}
+
+{% block conteudo %}
+    <div id="novo-deck">
+        <form action="/decks/novodeck/" method="post">
+            {% csrf_token %}
+            <label for="titulo-deck" class="form-label col-12">Título do Novo Deck</label>
+            {{form.titulo}}
+
+            <label for="descricao" class="form-label col-12">Descrição (opcional)</label>
+            {{form.descricao}}
+
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a id="btn-cancelar-novodeck" class="btn btn-secondary" aria-current="page" href="/decks">Cancelar</a>
+        </form>
+        {% if mensagem %}
+            <div class="alert alert-warning" role="alert">
+                {{ mensagem }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

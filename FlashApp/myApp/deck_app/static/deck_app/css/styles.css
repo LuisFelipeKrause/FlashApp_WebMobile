@@ -12,7 +12,7 @@
 #main-content-decks {
     display: flex;
     height: 90vh;
-    width: 180vh;
+    width: 185vh;
     border-radius: 30px;
     background-color: #151F35;
 }
@@ -48,19 +48,30 @@
     justify-content: center;
     align-items: center;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.493);
+    border-radius: 8px;
 }
 #btn-addDeck:hover, #btn-logout:hover {
     background-color: #169c50;
     border-color: #169c50;
 }
 #content-decks-list {
-    width: 50vh;
-    height: 79.5vh;
+    width: 60vh;
+    height: 78vh;
     background-color:#151F35;
     overflow-y: auto;
     border-radius: 30px;
 }
+.deck-list {
+    display: flex;
+}
+.icone-deck {
+    margin-top: 4vh;
+    margin-left: 1vh;
+}
 #btn-deck {
+    display: flex;
+    flex-direction: row;
+    color: white;
     background-color: #23DA72;
     border-color: #23DA72;
     margin-left: 3vh;
@@ -71,6 +82,7 @@
     font-size: large;
     font-weight: bold;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.493);
+    border-radius: 12px;
 }
 #btn-deck:hover {
     background-color: #169c50;
@@ -89,13 +101,13 @@
     color: white;
     background-color: #23DA72;
 }
-#novo-deck button {
+#novo-deck button, a {
     margin-top: 2vh;
 }
 #info-deck {
     margin-top: 4vh;
     height: 85vh;
-    width: 102vh;
+    width: 100vh;
     padding: 3vh;
     border-radius: 20px;
     background-color: #23DA72;
@@ -119,7 +131,7 @@
 }
 #centro {
     background-color: #151F35;
-    width: 119vh;
+    width: 115vh;
     display: flex;
     justify-content: center;
 }
