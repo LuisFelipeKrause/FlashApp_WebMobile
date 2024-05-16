@@ -4,7 +4,7 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decks</title>
+    <title>{% block titulo %}Decks{% endblock %}</title>
 
     <!-- CSS -->
     {% block importar_css %}{% endblock %}
@@ -20,6 +20,11 @@
             {% block conteudo %}
             {% endblock %}
         </div>
+        <a href="/logout"><button id="btn-logout" class="btn btn-primary"  type="button">Perfil
+            <!--<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-info">
+                {{user}}
+            </span>-->
+        </button></a>
     </div>
     {% endblock %}
 </body>

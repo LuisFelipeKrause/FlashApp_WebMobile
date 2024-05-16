@@ -1,10 +1,12 @@
 {% extends "../base.html" %}
 
+{% block titulo %}Adicionar Deck{% endblock %}
+
 {% load static %}
 {% block importar_css %}<link rel="stylesheet" href="{% static 'deck_app/css/styles.css' %}">{% endblock %}
 
 {% block conteudo %}
-    <div id="novo-deck">
+    <div class="novo-deck">
         <form action="/decks/novodeck/" method="post">
             {% csrf_token %}
             <label for="titulo-deck" class="form-label col-12">Título do Novo Deck</label>

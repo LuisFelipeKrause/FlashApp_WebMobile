@@ -13,6 +13,12 @@ class ListarDecks(LoginRequiredMixin, ListView):
     context_object_name = 'decks'
     template_name = 'deck_app/decks.html'
 
+    def get_queryset(self):
+        # Obtém o usuário atualmente logado
+        user = self.request.user
+        # Filtra os decks pertencentes ao usuário atual
+        return Deck.objects.filter(usuario=user)
+    
 
 class CriarDecks(LoginRequiredMixin, CreateView):
     model = Deck
@@ -23,47 +29,17 @@ class CriarDecks(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         # Define manualmente o usuário para o deck antes de salvar
         form.instance.usuario = self.request.user
+        # Define manualmente o horário em que o usuário foi criado
         form.instance.criado_em = timezone.now()
         return super().form_valid(form)
-
-
-class Decks(LoginRequiredMixin, View):
-    """def get(self, request):
-        contexto = {
-            'decks': Deck.objects.filter(usuario_id=request.user.id).all()
-        }
-        return render(request, 'deck_app/decks.html', context=contexto)"""
     
-    """def post(self, request):
-        from django.utils import timezone
+    
+class EditarDeck(LoginRequiredMixin, UpdateView):
+    model = Deck
+    form_class = FormularioDeck
+    template_name = 'deck_app/editarDeck.html'
+    success_url = reverse_lazy('decks')
 
-        titulo = request.POST.get('titulo-deck', None)
-        descricao = request.POST.get('descricao', '')
-
-        # Cadastrar o deck
-        novo_deck = Deck.objects.filter(usuario=request.user.id, titulo=titulo).first()
-        if novo_deck:
-            contexto = {
-                'decks': Deck.objects.filter(usuario_id=request.user.id).all(),
-                'mensagem': 'Você já possui um deck com esse nome'
-            }
-            return render(request, 'deck_app/decks.html', context=contexto)
-        
-        novo_deck = Deck.objects.create(titulo=titulo, descricao=descricao, criado_em=timezone.now(), usuario_id=request.user.id)
-        try:
-            novo_deck.save()
-        except:
-            contexto = {
-                'decks': Deck.objects.filter(usuario_id=request.user.id).all(),
-                'mensagem': 'Não foi possível criar o deck',
-            }
-            return render(request, 'deck_app/decks.html', context=contexto)
-
-        contexto = {
-            'decks': Deck.objects.filter(usuario_id=request.user.id).all(),
-        }
-        return render(request, 'deck_app/decks.html', context=contexto)"""
-        
 
 class Cards(View):
     def get(self, request):

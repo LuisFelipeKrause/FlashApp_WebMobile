@@ -2,20 +2,34 @@
     display: none;
 }
 
+/*PÁGINA BASE*/
 #main-container-decks {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     background-color: #0D1526;
 }
+
 #main-content-decks {
     display: flex;
+    justify-content: center;
+    align-items: center;
     height: 90vh;
     width: 185vh;
     border-radius: 30px;
     background-color: #151F35;
 }
+
+#btn-logout {
+    position: absolute;
+    top: -0.5vh; /* Ajuste conforme necessário */
+    right: 1.2vh; /* Ajuste conforme necessário */
+    /* Adicione estilos adicionais conforme necessário */
+}
+
+/*PÁGINA DECKS*/
 #linha-principal {
     background-color: #151F35;
     display: flex;
@@ -88,25 +102,28 @@
     background-color: #169c50;
     border-color: #169c50;
 }
-#novo-deck {
-    margin-top: 4vh;
+
+/*PÁGINA NOVO DECK*/
+.novo-deck {
     height: 50vh;
     width: 90vh;
     padding: 3vh;
     border-radius: 20px;
     background-color: #23DA72;
 }
-#novo-deck label, form {
+.novo-deck label, form {
     font-size: x-large;
     color: white;
     background-color: #23DA72;
 }
-#novo-deck button, a {
+.novo-deck button, a {
     margin-top: 2vh;
 }
+
+/*PARTE DE INFORMAÇÕES DO DECK*/
 #info-deck {
-    margin-top: 4vh;
-    height: 85vh;
+    margin-top: 2vh;
+    height: 82vh;
     width: 100vh;
     padding: 3vh;
     border-radius: 20px;
@@ -134,11 +151,4 @@
     width: 115vh;
     display: flex;
     justify-content: center;
-}
-#direita {
-    align-items: center;
-    text-align: center;
-}
-#direita button {
-    margin-top: 4vh;
 }
