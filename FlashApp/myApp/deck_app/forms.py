@@ -1,4 +1,3 @@
-from django.utils import timezone
 from django import forms
 from deck_app.models import Deck, Card
 
@@ -6,7 +5,7 @@ from deck_app.models import Deck, Card
 class FormularioDeck(forms.ModelForm):
     class Meta:
         model = Deck
-        exclude = ['usuario', 'erros', 'acertos', 'desempenho_geral', 'criado_em', 'ultima_revisao']
+        exclude = ['usuario', 'erros', 'acertos', 'desempenho_geral', 'criado_em', 'ultima_revisao', 'num_cards']
         widgets = {
             'descricao': forms.Textarea(attrs={'class': 'form-control', 'rows': 6}),
         }

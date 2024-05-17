@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import View, ListView, CreateView, UpdateView
 from deck_app.models import Deck, Card
-from deck_app.forms import FormularioDeck, FormularioCard
+from deck_app.forms import FormularioDeck
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
@@ -34,7 +34,7 @@ class CriarDecks(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     
     
-class EditarDeck(LoginRequiredMixin, UpdateView):
+class EditarDecks(LoginRequiredMixin, UpdateView):
     model = Deck
     form_class = FormularioDeck
     template_name = 'deck_app/editarDeck.html'

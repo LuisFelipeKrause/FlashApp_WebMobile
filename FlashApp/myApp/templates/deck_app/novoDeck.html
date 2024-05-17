@@ -9,7 +9,7 @@
     <div id="info-deck-janela">
         <h1>Cadastrar Novo Deck</h1>
         <div class="novo-deck">
-            <form action="/decks/novodeck/" method="post">
+            <form action="/decks/novodeck/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <label for="titulo-deck" class="form-label col-12">Título do Novo Deck</label>
                 {{form.titulo}}
