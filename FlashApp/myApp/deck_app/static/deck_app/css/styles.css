@@ -1,26 +1,47 @@
 /*PÁGINA BASE*/
-#main-container-decks {
-    position: relative;
+#main-container {
     display: flex;
+    flex-direction: column;
+    position: relative;
     justify-content: center;
     align-items: center;
     height: 100vh;
     background-color: #0D1526;
 }
-#main-content-decks {
+#main-content {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 90vh;
-    width: 185vh;
+    width: 90%;
     border-radius: 30px;
     background-color: #151F35;
 }
-#btn-logout {
-    position: absolute;
-    top: 1.5vh; 
-    right: 1.2vh; 
+#nav-base {
+    width: 20%;
+    background-color: #169c50;
 }
+#btn-perfil {
+    position: absolute;
+    top: 0vh; 
+    right: 1vh; 
+}
+#btn-logout {
+    border-radius: 0;
+    margin: 0;
+    align-items: center;
+    text-align: left;
+    width: 95%;
+    border-color: #169c50;
+    background-color: #169c50;
+}
+#btn-logout:hover {
+    border-color: #19c965;
+    background-color: #19c965;
+}
+
+
+
 
 /*PÁGINA DECKS*/
 .container {
@@ -69,10 +90,11 @@
     background-color: #23DA72;
     padding: 20px;
     border-radius: 10px;
-    width: 250px;
+    width: 50vh;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
     position: relative;
+    height: min-content;
 }
 .deck h2, p {
     color: white;

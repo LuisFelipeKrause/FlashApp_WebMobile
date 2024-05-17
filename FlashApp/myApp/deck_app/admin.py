@@ -4,7 +4,7 @@ from deck_app.models import Deck, Card
 # Register your models here.
 # Usado para permitir que um usuário administrador possua acesso ao BD, para alterar
 class DeckAdmin(admin.ModelAdmin):
-    list_display = ['id', 'usuario', 'titulo','num_cards', 'erros', 'acertos', 'ultima_revisao']
+    list_display = ['id', 'usuario', 'titulo', 'descricao', 'num_cards', 'erros', 'acertos', 'ultima_revisao']
     search_fields = ['titulo', 'usuario']
 
 admin.site.register(Deck, DeckAdmin)
