@@ -8,12 +8,13 @@ class Deck(models.Model):
     descricao = models.CharField(max_length=300, blank=True, null=True)
     erros = models.IntegerField(default=0)
     acertos = models.IntegerField(default=0)
+    num_cards = models.IntegerField(default=0)
     desempenho_geral = models.FloatField(default=0.0)
     criado_em = models.DateTimeField(auto_created=True)
-    ultima_revisao = models.DateTimeField()
+    ultima_revisao = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f'{self.titulo} - (A: {self.acertos}/E: {self.erros})'
+        return f'{self.titulo}'
     
 
 class Card(models.Model):
