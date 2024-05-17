@@ -37,6 +37,7 @@ class Cadastro(View):
         except:
             return render(request, 'login_app/cadastro.html', {'mensagem': 'Houve algum erro no cadastro'})
     
+        Login.post(self, request)
         return redirect('/decks')
 
 
