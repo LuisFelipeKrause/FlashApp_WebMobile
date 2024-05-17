@@ -47,7 +47,6 @@
     max-width: 900px;
     height: 86vh;
 }
-
 .header {
     display: flex;
     text-align: left;
@@ -137,4 +136,61 @@
 #btn-editar-cards:hover {
     background-color: #169c50;
     border-color: #169c50;
+}
+
+
+/*PÁGINA EDIÇÃO DE CARDS*/
+#header-cards {
+    
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    background-color: #28c29b;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.card {
+    background-color: #0b0b16;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100px;
+    height: 150px;
+    border-radius: 5px;
+    border: 2px solid #28c29b;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.salvar {
+    background-color: #28c29b;
+    color: white;
+}
+
+.cancelar {
+    background-color: #aaa;
+    color: white;
 }

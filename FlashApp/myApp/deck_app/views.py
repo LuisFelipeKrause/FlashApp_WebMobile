@@ -2,12 +2,15 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import View, ListView, CreateView, UpdateView
 from deck_app.models import Deck, Card
-from deck_app.forms import FormularioDeck
+from deck_app.forms import FormularioDeck, FormularioCard
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
+from django.shortcuts import get_object_or_404
+
 
 # Create your views here.
+# CRUD DE DECKS
 class ListarDecks(LoginRequiredMixin, ListView):
     model = Deck
     context_object_name = 'decks'
@@ -41,9 +44,15 @@ class EditarDecks(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('decks')
 
 
+# CRUD DE CARDS
 class Cards(View):
-    def get(self, request):
+    def get(self, request, pk):
+        deck = get_object_or_404(Deck, pk=pk)
+        cards = Card.objects.filter(deck=deck)
         contexto = {
-            'cards': Card.objects.all(),
+            'cards': cards
         }
-        return render(request, 'deck_app/decks.html', context=contexto)
+        return render(request, 'deck_app/editarCards.html', context=contexto)
+
+    #def post(self, request):
+
