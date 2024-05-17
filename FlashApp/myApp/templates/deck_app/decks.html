@@ -34,25 +34,7 @@
     </div>
 </div>
 <div id="centro">
-    <div id="novo-deck" class="hide">
-        <form action="" method="post">
-            {% csrf_token %}
-            <label for="titulo-deck" class="form-label col-12">Título do Novo Deck</label>
-            <input type="text" name="titulo-deck" class="form-control" placeholder="Título do novo Deck" required>
-    
-            <label for="descricao" class="form-label col-12">Descrição (opcional)</label>
-            <textarea class="form-control" name="descricao" id="descricao" rows="5" placeholder="Descrição..."></textarea>
-    
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            <button type="reset" class="btn btn-secondary">Cancelar</button>
-        </form>
-        {% if mensagem %}
-            <div class="alert alert-warning" role="alert">
-                {{ mensagem }}
-            </div>
-        {% endif %}
-    </div>
-    <div id="visao-geral-deck" class="">
+    <div id="visao-geral-deck" class="hide">
         <div id="info-deck">
             <div id="estatisticas-deck">
                 <h2>Acertos: </h2>
