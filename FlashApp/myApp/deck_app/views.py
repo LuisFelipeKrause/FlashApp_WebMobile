@@ -49,16 +49,41 @@ class DeletarDecks(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('decks')
 
 
-# CRUD DE CARDS
-class Cards(View):
+class InfoDeck(View):
     def get(self, request, pk):
         deck = get_object_or_404(Deck, pk=pk)
         cards = Card.objects.filter(deck=deck)
         contexto = {
-            'deck': deck.titulo,
+            'deck': deck,
             'cards': cards
         }
         return render(request, 'deck_app/infoDeck.html', context=contexto)
 
-    #def post(self, request):
+
+# CRUD DE CARDS
+class Cards(View):
+    def get(self, request, pk):
+        contexto = {
+            'pk': pk
+        }
+        return render(request, 'deck_app/novoCard.html', context=contexto)
+
+    def post(self, request, pk):
+        frente = request.POST.get('frente-card', '')
+        verso = request.POST.get('verso-card', '')
+        deck = Deck.objects.filter(id=pk).get()
+        novo_card = Card.objects.create(deck=deck, frente=frente, verso=verso)
+        try:
+            novo_card.save()
+            contexto = {
+                'deck': deck,
+                'cards': cards
+            }
+        except:
+            cards = Card.objects.filter(deck=deck)
+            contexto = {
+                'deck': deck,
+                'cards': cards
+            }
+        return render(request, 'deck_app/infoDeck.html', context=contexto)
 

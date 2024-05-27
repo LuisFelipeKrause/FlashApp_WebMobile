@@ -123,6 +123,9 @@
 .novo-deck button, a {
     margin-top: 2vh;
 }
+#btn-cancelar-novodeck {
+    margin-top: 2vh;
+}
 
 
 /*EDITAR DECK - NOME, DESCRIÇÃO, CARDS*/
@@ -152,12 +155,18 @@
     justify-content: space-around;
     width: 100%;
     flex-wrap: wrap;
-    gap: 50%;
+    gap: 10%;
     margin-bottom: 2vh;
+}
+#btns-revisar-addcard {
+    display: flex;
+    justify-content: space-between;
+    gap: 4vh;
 }
 .cards {
     display: flex;
-    height: 130vh;
+    height: auto;
+    max-height: 130vh;
     justify-content:left;
     flex-wrap: wrap;
     gap: 2vh;
@@ -168,6 +177,7 @@
     overflow-y: auto;
 }
 .card {
+    height: 10vh;
     padding: 3vh;
     font-size: large;
     color: white;
@@ -177,7 +187,6 @@
     text-align: center;
     width: 30vh;
     border-radius: 5px;
-    border: 4px solid #28c29b;
     text-align: center;
 }
 hr{
