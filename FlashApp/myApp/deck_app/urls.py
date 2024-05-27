@@ -1,8 +1,9 @@
 from django.urls import path
-from deck_app.views import ListarDecks, CriarDecks, EditarDecks, DeletarDecks, InfoDeck, Cards
+from deck_app.views import ListarDecks, CriarDecks, EditarDecks, DeletarDecks, InfoDeck, Cards, APIListarDecks
 
 urlpatterns = [
     path('', ListarDecks.as_view(), name='decks'),
+    path('api/', APIListarDecks.as_view(), name='api-listar-decks'),
     path('novodeck/', CriarDecks.as_view(), name='criar-deck'),
     path('<int:pk>/', EditarDecks.as_view(), name='editar-deck'),
     path('deletar/<int:pk>/', DeletarDecks.as_view(), name='deletar-deck'),

@@ -6,6 +6,10 @@ from deck_app.forms import FormularioDeck, FormularioCard
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+from deck_app.serializers import SerializadorDeck
+from rest_framework.generics import ListAPIView
+from rest_framework.authentication import TokenAuthentication
+from rest_framework import permissions
 
 
 # Create your views here.
@@ -87,3 +91,12 @@ class Cards(View):
             }
         return render(request, 'deck_app/infoDeck.html', context=contexto)
 
+
+# CRUD API
+class APIListarDecks(ListAPIView):
+    serializer_class = SerializadorDeck
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Deck.objects.all()
