@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView
 from deck_app.models import Deck, Card
@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from deck_app.serializers import SerializadorDeck
+from django.http import HttpResponse
 from rest_framework.generics import ListAPIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
@@ -65,12 +66,17 @@ class InfoDeck(View):
 
 
 # CRUD DE CARDS
-class Cards(View):
-    def get(self, request, pk):
+class Cards(LoginRequiredMixin, View):
+    def get(self, request, pk, pk_card=None):
         contexto = {
             'pk': pk
         }
-        return render(request, 'deck_app/novoCard.html', context=contexto)
+
+        if not pk_card:
+            return render(request, 'deck_app/novoCard.html', context=contexto)
+        #elif pk_card:
+
+            
 
     def post(self, request, pk):
         frente = request.POST.get('frente-card', '')
@@ -79,17 +85,21 @@ class Cards(View):
         novo_card = Card.objects.create(deck=deck, frente=frente, verso=verso)
         try:
             novo_card.save()
-            contexto = {
-                'deck': deck,
-                'cards': cards
-            }
         except:
-            cards = Card.objects.filter(deck=deck)
-            contexto = {
-                'deck': deck,
-                'cards': cards
-            }
-        return render(request, 'deck_app/infoDeck.html', context=contexto)
+            return HttpResponse('Não foi possível salvar o novo Card...')
+        return redirect(f'/decks/infodeck/{pk}/')
+    
+
+"""class EditarCards(LoginRequiredMixin, UpdateView):
+    model = Card
+    form_class = FormularioCard
+    template_name = 'deck_app/editarCard.html'
+    success_url = reverse_lazy('info-deck')
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        contexto['deck_id'] = self.kwargs['pkdeck']
+        return contexto"""
 
 
 # CRUD API

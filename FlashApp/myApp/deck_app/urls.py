@@ -8,5 +8,7 @@ urlpatterns = [
     path('<int:pk>/', EditarDecks.as_view(), name='editar-deck'),
     path('deletar/<int:pk>/', DeletarDecks.as_view(), name='deletar-deck'),
     path('infodeck/<int:pk>/', InfoDeck.as_view(), name='info-deck'),
-    path('infodeck/<int:pk>/novocard/', Cards.as_view(), name='criar-card')
+    path('infodeck/<int:pk>/novocard/', Cards.as_view(), name='criar-card'),
+    path('infodeck/<int:pk>/<int:pk_card>/', Cards.as_view(), name='editar-cards')
+    # path('infodeck/<int:pkdeck>/<int:pk>/', EditarCards.as_view(), name='editar-card')
 ]
