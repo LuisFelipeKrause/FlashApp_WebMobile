@@ -10,18 +10,18 @@
         <div id="info-deck-janela">
             <h1>Editar Card</h1>
             <div class="novo-deck">
-                <form action="/decks/infodeck/{{deck_id}}/{{object.id}}/" method="post" enctype="multipart/form-data">
+                <form action="/decks/infodeck/{{deck.id}}/{{card.id}}/" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <label for="titulo-deck" class="form-label col-12">Frente</label>
-                    {{form.frente}}
+                    <input type="hidden" name="_method" value="put">
 
-                    <label for="descricao" class="form-label col-12">Verso</label>
-                    {{form.verso}}
-
-                    <center>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                        <button class="btn btn-secondary" aria-current="page" href="/decks/infodeck/{{deck_id}}">Cancelar</button>
-                    </center>
+                    <label for="frente-card" class="form-label col-12">Frente</label>
+                    <textarea name="frente-card" class="form-control" type="text" required>{{card.frente}}</textarea>
+    
+                    <label for="verso-card" class="form-label col-12">Verso</label>
+                    <textarea name="verso-card" class="form-control" type="text" required>{{card.verso}}</textarea>
+    
+                    <button type="submit" class="btn btn-success">Adicionar</button>
+                    <a id="btn-cancelar-novodeck" class="btn btn-secondary" aria-current="page" href="/decks/infodeck/{{pk}}/">Cancelar</a>
                 </form>
             </div>
         </div>

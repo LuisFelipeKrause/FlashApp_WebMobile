@@ -12,10 +12,10 @@
             <form action="/decks/infodeck/{{pk}}/novocard/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <label for="frente-card" class="form-label col-12">Frente</label>
-                <textarea name="frente-card" class="form-control" type="text" required></textarea>
+                {{form.frente}}
 
                 <label for="verso-card" class="form-label col-12">Verso</label>
-                <textarea name="verso-card" class="form-control" type="text" required></textarea>
+                {{form.verso}}
 
                 <button type="submit" class="btn btn-success">Adicionar</button>
                 <!--<button type="submit" class="btn btn-success">Adicionar e continuar adicionando</button>-->

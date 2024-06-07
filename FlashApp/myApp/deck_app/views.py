@@ -4,10 +4,10 @@ from django.views.generic import View, ListView, CreateView, UpdateView, DeleteV
 from deck_app.models import Deck, Card
 from deck_app.forms import FormularioDeck, FormularioCard
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
 from deck_app.serializers import SerializadorDeck
-from django.http import HttpResponse
+from django.http import HttpResponseBadRequest, HttpResponse
 from rest_framework.generics import ListAPIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
@@ -54,7 +54,7 @@ class DeletarDecks(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('decks')
 
 
-class InfoDeck(View):
+class InfoDeck(LoginRequiredMixin, View):
     def get(self, request, pk):
         deck = get_object_or_404(Deck, pk=pk)
         cards = Card.objects.filter(deck=deck)
@@ -66,40 +66,28 @@ class InfoDeck(View):
 
 
 # CRUD DE CARDS
-class Cards(LoginRequiredMixin, View):
-    def get(self, request, pk, pk_card=None):
-        contexto = {
-            'pk': pk
-        }
-
-        if not pk_card:
-            return render(request, 'deck_app/novoCard.html', context=contexto)
-        #elif pk_card:
-
-            
-
-    def post(self, request, pk):
-        frente = request.POST.get('frente-card', '')
-        verso = request.POST.get('verso-card', '')
-        deck = Deck.objects.filter(id=pk).get()
-        novo_card = Card.objects.create(deck=deck, frente=frente, verso=verso)
-        try:
-            novo_card.save()
-        except:
-            return HttpResponse('Não foi possível salvar o novo Card...')
-        return redirect(f'/decks/infodeck/{pk}/')
-    
-
-"""class EditarCards(LoginRequiredMixin, UpdateView):
+class CriarCards(LoginRequiredMixin, CreateView):
     model = Card
     form_class = FormularioCard
-    template_name = 'deck_app/editarCard.html'
-    success_url = reverse_lazy('info-deck')
+    template_name = 'deck_app/novoCard.html'
 
     def get_context_data(self, **kwargs):
-        contexto = super().get_context_data(**kwargs)
-        contexto['deck_id'] = self.kwargs['pkdeck']
-        return contexto"""
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        context['pk'] = pk
+        # Adicione outros contextos aqui, se necessário
+        return context
+    
+    def form_valid(self, form):
+        deck_pk = self.kwargs.get('pk')
+        deck = Deck.objects.filter(id=deck_pk).get()
+        form.instance.deck = deck
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        # Obtendo o pk do deck a partir dos parâmetros da URL
+        deck_pk = self.kwargs.get('pk')
+        return reverse('info-deck', kwargs={'pk': deck_pk})
 
 
 # CRUD API
