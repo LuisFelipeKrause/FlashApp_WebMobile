@@ -1,5 +1,5 @@
 from django.urls import path
-from deck_app.views import ListarDecks, CriarDecks, EditarDecks, DeletarDecks, InfoDeck, CriarCards, EditarCards, APIListarDecks
+from deck_app.views import ListarDecks, CriarDecks, EditarDecks, DeletarDecks, InfoDeck, CriarCards, EditarCards, DeletarCard, APIListarDecks
 
 urlpatterns = [
     path('', ListarDecks.as_view(), name='decks'),
@@ -9,5 +9,6 @@ urlpatterns = [
     path('deletar/<int:pk>/', DeletarDecks.as_view(), name='deletar-deck'),
     path('infodeck/<int:pk>/', InfoDeck.as_view(), name='info-deck'),
     path('infodeck/<int:pk>/novocard/', CriarCards.as_view(), name='criar-card'),
-    path('infodeck/<int:pk>/<int:pk_card>/', EditarCards.as_view(), name='editar-card')
+    path('infodeck/<int:pk>/<int:pk_card>/', EditarCards.as_view(), name='editar-card'),
+    path('infodeck/<int:pk>/deletar/<int:pk_card>/', DeletarCard.as_view(), name='deletar-card')
 ]

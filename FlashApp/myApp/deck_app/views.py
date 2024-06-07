@@ -1,16 +1,16 @@
-from django.shortcuts import render, redirect
-from django.utils import timezone
-from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView
+from django.shortcuts import render, redirect # type: ignore
+from django.utils import timezone # type: ignore
+from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView # type: ignore
 from deck_app.models import Deck, Card
 from deck_app.forms import FormularioDeck, FormularioCard
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy, reverse
-from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin # type: ignore
+from django.urls import reverse_lazy, reverse # type: ignore
+from django.shortcuts import get_object_or_404 # type: ignore
 from deck_app.serializers import SerializadorDeck
-from django.http import HttpResponseBadRequest, HttpResponse
-from rest_framework.generics import ListAPIView
-from rest_framework.authentication import TokenAuthentication
-from rest_framework import permissions
+from django.http import HttpResponseBadRequest, HttpResponse # type: ignore
+from rest_framework.generics import ListAPIView # type: ignore
+from rest_framework.authentication import TokenAuthentication # type: ignore
+from rest_framework import permissions # type: ignore
 
 
 # Create your views here.
@@ -116,6 +116,26 @@ class EditarCards(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         # Obtendo o pk do deck a partir dos parâmetros da URL
+        deck_pk = self.kwargs.get('pk')
+        return reverse('info-deck', kwargs={'pk': deck_pk})
+
+
+class DeletarCard(LoginRequiredMixin, DeleteView):
+    model = Card
+    template_name = 'deck_app/deletarCard.html'
+    
+    def get_object(self, queryset=None):
+        pk_card = self.kwargs.get('pk_card')
+        return Card.objects.get(pk=pk_card)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        context['pk'] = pk
+        # Adicione outros contextos aqui, se necessário
+        return context
+
+    def get_success_url(self):
         deck_pk = self.kwargs.get('pk')
         return reverse('info-deck', kwargs={'pk': deck_pk})
 

@@ -178,7 +178,7 @@
 }
 .card {
     height: 10vh;
-    padding: 3vh;
+    padding: 0vh 3vh 3vh 3vh;
     font-size: large;
     color: white;
     display: flex;
@@ -214,6 +214,11 @@ hr{
 .cancelar {
     background-color: #aaa;
     color: white;
+}
+.icones-card {
+    display: flex;
+    justify-content: space-between;
+    gap: 18vh;
 }
 
 
