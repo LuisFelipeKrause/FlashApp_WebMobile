@@ -88,6 +88,36 @@ class CriarCards(LoginRequiredMixin, CreateView):
         # Obtendo o pk do deck a partir dos parâmetros da URL
         deck_pk = self.kwargs.get('pk')
         return reverse('info-deck', kwargs={'pk': deck_pk})
+    
+
+class EditarCards(LoginRequiredMixin, UpdateView):
+    model = Card
+    form_class = FormularioCard
+    template_name = 'deck_app/editarCard.html'
+
+    def get_object(self, queryset=None):
+        pk_card = self.kwargs.get('pk_card')
+        return Card.objects.get(pk=pk_card)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        context['pk'] = pk
+        pk_card = self.kwargs.get('pk_card')
+        context['pk_card'] = pk_card
+        # Adicione outros contextos aqui, se necessário
+        return context
+    
+    def form_valid(self, form):
+        deck_pk = self.kwargs.get('pk')
+        deck = Deck.objects.filter(id=deck_pk).get()
+        form.instance.deck = deck
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # Obtendo o pk do deck a partir dos parâmetros da URL
+        deck_pk = self.kwargs.get('pk')
+        return reverse('info-deck', kwargs={'pk': deck_pk})
 
 
 # CRUD API
