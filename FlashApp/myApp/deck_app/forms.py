@@ -21,4 +21,8 @@ class FormularioCard(forms.ModelForm):
     
     class Meta:
         model = Card
-        exclude = []
+        exclude = ['deck']
+        widgets = {
+            'frente': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
+            'verso': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
+        }

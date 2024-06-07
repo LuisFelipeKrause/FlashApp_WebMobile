@@ -18,13 +18,12 @@
                     <label for="descricao" class="form-label col-12">Descrição (opcional)</label>
                     {{form.descricao}}
 
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                    <a id="btn-cancelar-novodeck" class="btn btn-secondary" aria-current="page" href="/decks">Cancelar</a>
+                    <center>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button class="btn btn-secondary" aria-current="page" href="/decks">Cancelar</button>
+                    </center>
                 </form>
             </div>
-        </div>
-        <div id="btn-editar-div">
-            <a id="btn-editar-cards" class="btn btn-primary" aria-current="page" href="">Editar Cards</a>
         </div>
     </div>
 {% endblock %}

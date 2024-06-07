@@ -1,13 +1,20 @@
-from django.shortcuts import render
-from django.utils import timezone
-from django.views.generic import View, ListView, CreateView, UpdateView
+from django.shortcuts import render, redirect # type: ignore
+from django.utils import timezone # type: ignore
+from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView # type: ignore
 from deck_app.models import Deck, Card
-from deck_app.forms import FormularioDeck
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from deck_app.forms import FormularioDeck, FormularioCard
+from django.contrib.auth.mixins import LoginRequiredMixin # type: ignore
+from django.urls import reverse_lazy, reverse # type: ignore
+from django.shortcuts import get_object_or_404 # type: ignore
+from deck_app.serializers import SerializadorDeck
+from django.http import HttpResponseBadRequest, HttpResponse # type: ignore
+from rest_framework.generics import ListAPIView # type: ignore
+from rest_framework.authentication import TokenAuthentication # type: ignore
+from rest_framework import permissions # type: ignore
 
 
 # Create your views here.
+# CRUD DE DECKS
 class ListarDecks(LoginRequiredMixin, ListView):
     model = Deck
     context_object_name = 'decks'
@@ -41,9 +48,103 @@ class EditarDecks(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('decks')
 
 
-class Cards(View):
-    def get(self, request):
+class DeletarDecks(LoginRequiredMixin, DeleteView):
+    model = Deck
+    template_name = 'deck_app/deletarDeck.html'
+    success_url = reverse_lazy('decks')
+
+
+class InfoDeck(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        deck = get_object_or_404(Deck, pk=pk)
+        cards = Card.objects.filter(deck=deck)
         contexto = {
-            'cards': Card.objects.all(),
+            'deck': deck,
+            'cards': cards
         }
-        return render(request, 'deck_app/decks.html', context=contexto)
+        return render(request, 'deck_app/infoDeck.html', context=contexto)
+
+
+# CRUD DE CARDS
+class CriarCards(LoginRequiredMixin, CreateView):
+    model = Card
+    form_class = FormularioCard
+    template_name = 'deck_app/novoCard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        context['pk'] = pk
+        # Adicione outros contextos aqui, se necessário
+        return context
+    
+    def form_valid(self, form):
+        deck_pk = self.kwargs.get('pk')
+        deck = Deck.objects.filter(id=deck_pk).get()
+        form.instance.deck = deck
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        # Obtendo o pk do deck a partir dos parâmetros da URL
+        deck_pk = self.kwargs.get('pk')
+        return reverse('info-deck', kwargs={'pk': deck_pk})
+    
+
+class EditarCards(LoginRequiredMixin, UpdateView):
+    model = Card
+    form_class = FormularioCard
+    template_name = 'deck_app/editarCard.html'
+
+    def get_object(self, queryset=None):
+        pk_card = self.kwargs.get('pk_card')
+        return Card.objects.get(pk=pk_card)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        context['pk'] = pk
+        pk_card = self.kwargs.get('pk_card')
+        context['pk_card'] = pk_card
+        # Adicione outros contextos aqui, se necessário
+        return context
+    
+    def form_valid(self, form):
+        deck_pk = self.kwargs.get('pk')
+        deck = Deck.objects.filter(id=deck_pk).get()
+        form.instance.deck = deck
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # Obtendo o pk do deck a partir dos parâmetros da URL
+        deck_pk = self.kwargs.get('pk')
+        return reverse('info-deck', kwargs={'pk': deck_pk})
+
+
+class DeletarCard(LoginRequiredMixin, DeleteView):
+    model = Card
+    template_name = 'deck_app/deletarCard.html'
+    
+    def get_object(self, queryset=None):
+        pk_card = self.kwargs.get('pk_card')
+        return Card.objects.get(pk=pk_card)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        context['pk'] = pk
+        # Adicione outros contextos aqui, se necessário
+        return context
+
+    def get_success_url(self):
+        deck_pk = self.kwargs.get('pk')
+        return reverse('info-deck', kwargs={'pk': deck_pk})
+
+
+# CRUD API
+class APIListarDecks(ListAPIView):
+    serializer_class = SerializadorDeck
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Deck.objects.all()

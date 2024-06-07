@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login_app.apps.LoginAppConfig',
     'deck_app.apps.DeckAppConfig',
-    'revisar_app.apps.RevisarAppConfig'
+    'revisar_app.apps.RevisarAppConfig',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [

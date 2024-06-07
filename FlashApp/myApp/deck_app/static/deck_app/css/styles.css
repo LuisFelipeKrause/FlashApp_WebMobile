@@ -43,18 +43,17 @@
 
 /*PÁGINA DECKS*/
 .container {
-    width: 80%;
+    width: 90%;
     max-width: 900px;
     height: 86vh;
 }
-
 .header {
     display: flex;
-    text-align: left;
     color: white;
     justify-content: space-around;
+    width: 100%;
     flex-wrap: wrap;
-    gap: 85%;
+    gap: 84%;
     margin-bottom: 2vh;
 }
 #btn-addDeck {
@@ -124,11 +123,15 @@
 .novo-deck button, a {
     margin-top: 2vh;
 }
+#btn-cancelar-novodeck {
+    margin-top: 2vh;
+}
 
 
 /*EDITAR DECK - NOME, DESCRIÇÃO, CARDS*/
 #btn-editar-div {
     text-align: center;
+    margin-top: 3vh;
 }
 #btn-editar-cards {
     background-color: #23DA72;
@@ -136,5 +139,93 @@
 }
 #btn-editar-cards:hover {
     background-color: #169c50;
+    border-color: #169c50;
+}
+
+
+/*PÁGINA-INFO-DECK*/
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#header-cards {
+    display: flex;
+    color: white;
+    justify-content: space-around;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10%;
+    margin-bottom: 2vh;
+}
+#btns-revisar-addcard {
+    display: flex;
+    justify-content: space-between;
+    gap: 4vh;
+}
+.cards {
+    display: flex;
+    height: auto;
+    max-height: 130vh;
+    justify-content:left;
+    flex-wrap: wrap;
+    gap: 2vh;
+    width: 98%;
+    background-color: #23DA72;
+    padding: 5vh;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+.card {
+    height: 10vh;
+    padding: 0vh 3vh 3vh 3vh;
+    font-size: large;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 30vh;
+    border-radius: 5px;
+    text-align: center;
+}
+hr{
+    border-color:#aaa;
+    width: 100%;
+}
+.buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.salvar {
+    background-color: #28c29b;
+    color: white;
+}
+
+.cancelar {
+    background-color: #aaa;
+    color: white;
+}
+.icones-card {
+    display: flex;
+    justify-content: space-between;
+    gap: 18vh;
+}
+
+
+/*DELETAR-DECK*/
+.confirmar-delecao {
+    background-color: #19c965;
+    padding: 4vh;
+    border-radius: 25px;
     border-color: #169c50;
 }
