@@ -3,17 +3,52 @@
 {% block titulo %}Revisão{% endblock %}
 
 {% load static %}
+
 {% block importar_css %}<link rel="stylesheet" href="{% static 'revisar_app/css/styles.css' %}">{% endblock %}
 
 {% block conteudo %}
     <div id="container">
         <div id="card">
-            Conteúdo da frente do card
+            <div id="card-content">
+                <div id="frente" class="">
+                    Conteúdo da frente do card
+                </div>
+                <div id="verso" class="hide">
+                    Conteúdo de trás do card
+                </div>
+            </div>
         </div>
         <div id="buttons">
-            <button class="btn btn-danger btn-revisao">Errei</button>
-            <button class="btn btn-primary btn-revisao">↻</button>
-            <button class="btn btn-success btn-revisao">Acertei</button>
+            <button onclick="" class="btn btn-danger btn-revisao">Errei</button>
+            <button onclick="girarCard()" class="btn btn-primary btn-revisao">↻</button>
+            <button onclick="" class="btn btn-success btn-revisao">Acertei</button>
         </div>
     </div>
+
+    <script defer>
+        var isFlipped = false;
+    
+        function girarCard() {
+            var card = document.getElementById('card');
+            var frontContent = document.getElementById('frente');
+            var backContent = document.getElementById('verso');
+            
+            if (!isFlipped) {
+                card.classList.add('flipped');
+                frontContent.classList.add('hide');
+                backContent.classList.remove('hide');
+            } else {
+                card.classList.remove('flipped');
+                frontContent.classList.remove('hide');
+                backContent.classList.add('hide');
+            }
+    
+            if (!isFlipped){
+                isFlipped = true;
+            }
+            else{
+                isFlipped = false;
+            }
+        }
+    </script>
 {% endblock %}
