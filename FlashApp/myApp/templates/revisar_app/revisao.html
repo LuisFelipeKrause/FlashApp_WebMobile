@@ -1,0 +1,19 @@
+{% extends "../base.html" %}
+
+{% block titulo %}Revisão{% endblock %}
+
+{% load static %}
+{% block importar_css %}<link rel="stylesheet" href="{% static 'revisar_app/css/styles.css' %}">{% endblock %}
+
+{% block conteudo %}
+    <div id="container">
+        <div id="card">
+            Conteúdo da frente do card
+        </div>
+        <div id="buttons">
+            <button class="btn btn-danger btn-revisao">Errei</button>
+            <button class="btn btn-primary btn-revisao">↻</button>
+            <button class="btn btn-success btn-revisao">Acertei</button>
+        </div>
+    </div>
+{% endblock %}

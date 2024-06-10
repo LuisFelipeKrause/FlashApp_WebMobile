@@ -10,5 +10,5 @@ urlpatterns = [
     path('infodeck/<int:pk>/', InfoDeck.as_view(), name='info-deck'),
     path('infodeck/<int:pk>/novocard/', CriarCards.as_view(), name='criar-card'),
     path('infodeck/<int:pk>/<int:pk_card>/', EditarCards.as_view(), name='editar-card'),
-    path('infodeck/<int:pk>/deletar/<int:pk_card>/', DeletarCard.as_view(), name='deletar-card')
+    path('infodeck/<int:pk>/deletar/<int:pk_card>/', DeletarCard.as_view(), name='deletar-card'),
 ]
