@@ -6,17 +6,26 @@
 
 {% block importar_css %}<link rel="stylesheet" href="{% static 'revisar_app/css/styles.css' %}">{% endblock %}
 
+<!-- Exemplo para acessar variáveis
+    {{deck}} <br>
+    {% for card in cards %}
+        {{card}}
+    {% endfor %}
+-->
+
 {% block conteudo %}
     <div id="container">
         <div id="card">
+            {% for card in cards %}
             <div id="card-content">
                 <div id="frente" class="">
-                    Conteúdo da frente do card
+                    <p id="valor-frente">{{card.frente}}</p>
                 </div>
                 <div id="verso" class="hide">
-                    Conteúdo de trás do card
+                    <p id="valor-verso">{{card.verso}}</p>
                 </div>
             </div>
+            {% endfor %}
         </div>
         <div id="buttons">
             <button onclick="" class="btn btn-danger btn-revisao">Errei</button>
@@ -26,7 +35,9 @@
     </div>
 
     <script defer>
-        var isFlipped = false;
+        let isFlipped = false;
+        let erros = 0;
+        let acertos = 0;
     
         function girarCard() {
             var card = document.getElementById('card');
@@ -42,7 +53,7 @@
                 frontContent.classList.remove('hide');
                 backContent.classList.add('hide');
             }
-    
+
             if (!isFlipped){
                 isFlipped = true;
             }
