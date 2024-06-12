@@ -6,26 +6,17 @@
 
 {% block importar_css %}<link rel="stylesheet" href="{% static 'revisar_app/css/styles.css' %}">{% endblock %}
 
-<!-- Exemplo para acessar variáveis
-    {{deck}} <br>
-    {% for card in cards %}
-        {{card}}
-    {% endfor %}
--->
-
 {% block conteudo %}
     <div id="container">
         <div id="card">
-            {% for card in cards %}
             <div id="card-content">
                 <div id="frente" class="">
-                    <p id="valor-frente">{{card.frente}}</p>
+                    <p id="valor-frente"></p>
                 </div>
                 <div id="verso" class="hide">
-                    <p id="valor-verso">{{card.verso}}</p>
+                    <p id="valor-verso"></p>
                 </div>
             </div>
-            {% endfor %}
         </div>
         <div id="buttons">
             <button onclick="" class="btn btn-danger btn-revisao">Errei</button>
@@ -38,6 +29,37 @@
         let isFlipped = false;
         let erros = 0;
         let acertos = 0;
+        
+        let cards = "{{cards.all|safe}}";
+
+        // Remover partes desnecessárias
+        cards = cards.replace("<QuerySet [", "").replace("]>", "").trim();
+
+        // Separar os elementos pelo delimitador ', '
+        let cardElements = cards.split(", ");
+
+        // Criar arrays para armazenar os valores separados
+        let valoresFrente = [];
+        let valoresVerso = [];
+
+        // Iterar sobre cada elemento, removendo tags HTML e separando valores
+        cardElements.forEach(card => {
+            // Remover o prefixo "Card:", tags HTML e caracteres especiais
+            let cleanCard = card.replace(/<Card: /, "").replace(/>/, "").trim();
+            
+            // Separar pelo delimitador " | "
+            let parts = cleanCard.split(" | ");
+            
+            // Obter o valor antes do delimitador
+            let valorAntes = parts[0].trim();
+            
+            // Obter o valor depois do delimitador
+            let valorDepois = parts[1].trim();
+            
+            // Adicionar aos arrays respectivos
+            valoresFrente.push(valorAntes);
+            valoresVerso.push(valorDepois);
+        });
     
         function girarCard() {
             var card = document.getElementById('card');
