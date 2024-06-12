@@ -8,6 +8,8 @@
 
 {% block conteudo %}
     <div id="container">
+        <h2 id="acertos-mostrador"></h2>
+        <h2 id="erros-mostrador"></h2>
         <div id="card">
             <div id="card-content">
                 <div id="frente" class="">
@@ -71,6 +73,8 @@
 
             let frente = document.getElementById('valor-frente').textContent = valoresFrente[cardEmRevisao];
             let verso = document.getElementById('valor-verso').textContent = valoresVerso[cardEmRevisao];
+            let acertosMostrador = document.getElementById('acertos-mostrador').textContent = "Acertos: " + acertos;
+            let errosMostrador = document.getElementById('erros-mostrador').textContent = "Erros: " + erros;
         }
     
         function girarCard() {
@@ -99,12 +103,14 @@
         function contarErro(){
             erros += 1;
             cardEmRevisao++;
+            girarCard();
             fazerRevisao(cardEmRevisao);
         }
 
         function contarAcerto(){
             acertos += 1;
             cardEmRevisao++;
+            girarCard();
             fazerRevisao(cardEmRevisao);
         }
     </script>
