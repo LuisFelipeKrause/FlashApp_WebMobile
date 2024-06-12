@@ -19,9 +19,9 @@
             </div>
         </div>
         <div id="buttons">
-            <button onclick="" class="btn btn-danger btn-revisao">Errei</button>
+            <button onclick="contarErro()" class="btn btn-danger btn-revisao">Errei</button>
             <button onclick="girarCard()" class="btn btn-primary btn-revisao">↻</button>
-            <button onclick="" class="btn btn-success btn-revisao">Acertei</button>
+            <button onclick="contarAcerto()" class="btn btn-success btn-revisao">Acertei</button>
         </div>
     </div>
 
@@ -29,6 +29,7 @@
         let isFlipped = false;
         let erros = 0;
         let acertos = 0;
+        let cardEmRevisao = 0;
         
         let cards = "{{cards.all|safe}}";
 
@@ -60,6 +61,17 @@
             valoresFrente.push(valorAntes);
             valoresVerso.push(valorDepois);
         });
+
+        fazerRevisao(cardEmRevisao);
+
+        function fazerRevisao(cardEmRevisao){
+            if (cardEmRevisao >= valoresFrente.length){
+                window.location = "http://127.0.0.1:8000/decks/infodeck/{{deck.id}}/";
+            }
+
+            let frente = document.getElementById('valor-frente').textContent = valoresFrente[cardEmRevisao];
+            let verso = document.getElementById('valor-verso').textContent = valoresVerso[cardEmRevisao];
+        }
     
         function girarCard() {
             var card = document.getElementById('card');
@@ -82,6 +94,18 @@
             else{
                 isFlipped = false;
             }
+        }
+
+        function contarErro(){
+            erros += 1;
+            cardEmRevisao++;
+            fazerRevisao(cardEmRevisao);
+        }
+
+        function contarAcerto(){
+            acertos += 1;
+            cardEmRevisao++;
+            fazerRevisao(cardEmRevisao);
         }
     </script>
 {% endblock %}
