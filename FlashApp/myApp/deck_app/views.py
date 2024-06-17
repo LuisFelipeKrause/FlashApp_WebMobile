@@ -82,6 +82,8 @@ class CriarCards(LoginRequiredMixin, CreateView):
         deck_pk = self.kwargs.get('pk')
         deck = Deck.objects.filter(id=deck_pk).get()
         form.instance.deck = deck
+        deck.num_cards += 1
+        deck.save()
         return super().form_valid(form)
     
     def get_success_url(self):
@@ -134,6 +136,13 @@ class DeletarCard(LoginRequiredMixin, DeleteView):
         context['pk'] = pk
         # Adicione outros contextos aqui, se necessário
         return context
+    
+    def form_valid(self, form):
+        deck_pk = self.kwargs.get('pk')
+        deck = Deck.objects.filter(id=deck_pk).get()
+        deck.num_cards -= 1
+        deck.save()
+        return super().form_valid(form)
 
     def get_success_url(self):
         deck_pk = self.kwargs.get('pk')

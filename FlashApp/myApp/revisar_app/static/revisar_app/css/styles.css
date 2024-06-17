@@ -22,7 +22,7 @@
     border-radius: 20px;
     background-color: white;
     perspective: 1000px;
-    transition: transform 0.5s;
+    transition: transform 0.4s;
 }
 #card-content {
     position: absolute;
@@ -32,6 +32,7 @@
 }
 #card.flipped {
     transform: rotateY(180deg);
+    transition: 0.4s;
 }
 #frente, #verso {
     position: absolute;
@@ -41,7 +42,6 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    transition: opacity 0.6s;
 }
 #card.flipped #frente {
     opacity: 0;

@@ -8,8 +8,8 @@
 
 {% block conteudo %}
     <div id="container">
-        <h2 id="acertos-mostrador"></h2>
-        <h2 id="erros-mostrador"></h2>
+        <h2 id="acertos-mostrador" style="color: white;"></h2>
+        <h2 id="erros-mostrador" style="color: white;"></h2>
         <div id="card">
             <div id="card-content">
                 <div id="frente" class="">
@@ -32,42 +32,28 @@
         let erros = 0;
         let acertos = 0;
         let cardEmRevisao = 0;
-        
-        let cards = "{{cards.all|safe}}";
-
-        // Remover partes desnecessárias
-        cards = cards.replace("<QuerySet [", "").replace("]>", "").trim();
-
-        // Separar os elementos pelo delimitador ', '
-        let cardElements = cards.split(", ");
-
-        // Criar arrays para armazenar os valores separados
         let valoresFrente = [];
         let valoresVerso = [];
+        let cards = "{{cards.all|safe}}";
 
-        // Iterar sobre cada elemento, removendo tags HTML e separando valores
+        cards = cards.replace("<QuerySet [", "").replace("]>", "").trim();
+        let cardElements = cards.split(", ");
         cardElements.forEach(card => {
-            // Remover o prefixo "Card:", tags HTML e caracteres especiais
             let cleanCard = card.replace(/<Card: /, "").replace(/>/, "").trim();
             
-            // Separar pelo delimitador " | "
             let parts = cleanCard.split(" | ");
             
-            // Obter o valor antes do delimitador
             let valorAntes = parts[0].trim();
             
-            // Obter o valor depois do delimitador
             let valorDepois = parts[1].trim();
             
-            // Adicionar aos arrays respectivos
             valoresFrente.push(valorAntes);
             valoresVerso.push(valorDepois);
         });
 
-        fazerRevisao(cardEmRevisao);
-
         function fazerRevisao(cardEmRevisao){
             if (cardEmRevisao >= valoresFrente.length){
+                // Comandos para passar o resultado da revisão para o backend
                 window.location = "http://127.0.0.1:8000/decks/infodeck/{{deck.id}}/";
             }
 
@@ -81,17 +67,16 @@
             var card = document.getElementById('card');
             var frontContent = document.getElementById('frente');
             var backContent = document.getElementById('verso');
-            
+
             if (!isFlipped) {
                 card.classList.add('flipped');
                 frontContent.classList.add('hide');
                 backContent.classList.remove('hide');
             } else {
-                card.classList.remove('flipped');
-                frontContent.classList.remove('hide');
                 backContent.classList.add('hide');
+                frontContent.classList.remove('hide');
+                card.classList.remove('flipped');
             }
-
             if (!isFlipped){
                 isFlipped = true;
             }
@@ -103,15 +88,24 @@
         function contarErro(){
             erros += 1;
             cardEmRevisao++;
-            girarCard();
+        
+            if (isFlipped){
+                girarCard();
+            }
             fazerRevisao(cardEmRevisao);
         }
 
         function contarAcerto(){
             acertos += 1;
             cardEmRevisao++;
-            girarCard();
+            
+            if (isFlipped){
+                girarCard();
+            }
             fazerRevisao(cardEmRevisao);
         }
+
+        // Programa Principal
+        fazerRevisao(cardEmRevisao);
     </script>
 {% endblock %}

@@ -15,4 +15,5 @@ class RevisarCards(LoginRequiredMixin, View):
         }
         return render(request, 'revisar_app/revisao.html', contexto)
 
-    # def post()  # Usado para mandar o resultado da revisão
+    # def post():  # Usado para mandar o resultado da revisão
+        # Fazer lógica para receber os dados da revisão
