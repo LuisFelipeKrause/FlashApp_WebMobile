@@ -23,4 +23,4 @@ class Card(models.Model):
     verso = models.CharField(max_length=400)
 
     def __str__(self):
-        return f'{self.frente} / {self.verso}'
+        return f'{self.frente} | {self.verso}'

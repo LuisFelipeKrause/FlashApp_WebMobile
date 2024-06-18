@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from login_app.views import Home, Cadastro, Login, Logout
+from revisar_app.views import RevisarCards
 
 
 urlpatterns = [
@@ -26,4 +27,5 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('logout/', Logout.as_view(), name='logout'),
     path('decks/', include('deck_app.urls'), name='decks'),
+    path('decks/infodeck/revisar/<int:pk>/', RevisarCards.as_view(), name='revisar')
 ]

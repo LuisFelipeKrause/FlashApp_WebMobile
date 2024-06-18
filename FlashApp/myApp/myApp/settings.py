@@ -128,7 +128,11 @@ DATE_FORMAT = '%d/%m/%Y'
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR/'static'
-STATICFILES_DIRS = [BASE_DIR/'login_app'/'static']
+STATICFILES_DIRS = [BASE_DIR/'login_app'/'static', 
+                    BASE_DIR/'revisar_app'/'static', 
+                    BASE_DIR/'deck_app'/'static', 
+                    BASE_DIR/'myApp'/'static'
+                    ]
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 
 # Default primary key field type
