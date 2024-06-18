@@ -6,5 +6,32 @@
 {% block importar_css %}<link rel="stylesheet" href="{% static 'login_app/css/styles.css' %}">{% endblock %}
 
 {% block conteudo %}
-    
+<div id="container-principal">
+    <div class="text-center mb-4">
+        <img src="../static/login_app/img/LogoV3.png" alt="FlashApp Logo" class="logo">
+    </div>
+    <div id="container-perfil">
+        <div id="card-perfil">
+            <h3 id="label-perfil" class="text-center text-white mb-4">Minha Conta</h3>
+            <form>
+                <div id="label-perfil" class="form-group">
+                    <label id="label-perfil" class="text-white" for="name">Nome:</label>
+                    <input type="text" class="form-control bg-success text-white border-0" id="name" value="Luís Felipe Krause">
+                </div>
+                <div id="label-perfil" class="form-group">
+                    <label id="label-perfil" class="text-white" for="email">E-mail:</label>
+                    <input type="email" class="form-control bg-success text-white border-0" id="email" value="lfelipe.krause@gmail.com">
+                </div>
+                <div id="label-perfil" class="form-group">
+                    <label id="label-perfil" class="text-white" for="password">Senha:</label>
+                    <input type="password" class="form-control bg-success text-white border-0" id="password" value="******************">
+                </div>
+                <div id="label-perfil" class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </form>
+        </div>
+</div>
+</div>
 {% endblock %}
