@@ -80,3 +80,7 @@ class Logout(View):
         logout(request)  # Encerra a sessão
         return redirect(settings.LOGIN_URL)  # Essa constante LOGIN_URL foi definida no arquivo settings.py
     
+
+class EditAccount(View):
+    def get(self, request):
+        return render(request, 'login_app/perfil.html')
