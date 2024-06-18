@@ -1,16 +1,16 @@
-from django.shortcuts import render, redirect # type: ignore
-from django.utils import timezone # type: ignore
-from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView # type: ignore
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView
 from deck_app.models import Deck, Card
 from deck_app.forms import FormularioDeck, FormularioCard
-from django.contrib.auth.mixins import LoginRequiredMixin # type: ignore
-from django.urls import reverse_lazy, reverse # type: ignore
-from django.shortcuts import get_object_or_404 # type: ignore
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import get_object_or_404
 from deck_app.serializers import SerializadorDeck
-from django.http import HttpResponseBadRequest, HttpResponse # type: ignore
-from rest_framework.generics import ListAPIView # type: ignore
-from rest_framework.authentication import TokenAuthentication # type: ignore
-from rest_framework import permissions # type: ignore
+from django.http import HttpResponseBadRequest, HttpResponse
+from rest_framework.generics import ListAPIView
+from rest_framework.authentication import TokenAuthentication
+from rest_framework import permissions
 
 
 # Create your views here.
@@ -63,6 +63,18 @@ class InfoDeck(LoginRequiredMixin, View):
             'cards': cards
         }
         return render(request, 'deck_app/infoDeck.html', context=contexto)
+    
+    def post(self, request, pk):
+        erros = request.POST.get('erros-form')
+        acertos = request.POST.get('acertos-form')
+
+        deck = get_object_or_404(Deck, pk=pk)
+
+        deck.erros += int(erros)
+        deck.acertos += int(acertos)
+        deck.save()
+
+        return self.get(request, pk)
 
 
 # CRUD DE CARDS

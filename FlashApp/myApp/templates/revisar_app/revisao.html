@@ -25,6 +25,12 @@
             <button onclick="girarCard()" class="btn btn-primary btn-revisao">↻</button>
             <button onclick="contarAcerto()" class="btn btn-success btn-revisao">Acertei</button>
         </div>
+        <form id="dados" method="post" action="{% url 'info-deck' pk=deck.id %}" hidden>
+            {% csrf_token %}
+            <textarea name="erros-form" id="erros"></textarea>
+            <textarea name="acertos-form" id="acertos"></textarea>
+            <button id="enviar" type="submit">Enviar</button>
+        </form>
     </div>
 
     <script defer>
@@ -53,8 +59,10 @@
 
         function fazerRevisao(cardEmRevisao){
             if (cardEmRevisao >= valoresFrente.length){
-                // Comandos para passar o resultado da revisão para o backend
-                window.location = "http://127.0.0.1:8000/decks/infodeck/{{deck.id}}/";
+                let formErro = document.getElementById('erros').textContent = erros;
+                let formAcerto = document.getElementById('acertos').textContent = acertos;
+                document.getElementById('enviar').click();
+                //window.location = "http://127.0.0.1:8000/decks/infodeck/{{deck.id}}/";
             }
 
             let frente = document.getElementById('valor-frente').textContent = valoresFrente[cardEmRevisao];
