@@ -13,25 +13,26 @@
     <div id="container-perfil">
         <div id="card-perfil">
             <h3 id="label-perfil" class="text-center text-white mb-4">Minha Conta</h3>
-            <form>
+            <form action="/account/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
                 <div id="label-perfil" class="form-group">
                     <label id="label-perfil" class="text-white" for="name">Nome:</label>
-                    <input type="text" class="form-control bg-success text-white border-0" id="name" value="Luís Felipe Krause">
+                    <input id="input-perfil" type="text" name="name" class="form-control text-white border-0" value="{{nome}}">
                 </div>
                 <div id="label-perfil" class="form-group">
                     <label id="label-perfil" class="text-white" for="email">E-mail:</label>
-                    <input type="email" class="form-control bg-success text-white border-0" id="email" value="lfelipe.krause@gmail.com">
+                    <input id="input-perfil" type="email" name="email" class="form-control text-white border-0" value="{{email}}">
                 </div>
                 <div id="label-perfil" class="form-group">
-                    <label id="label-perfil" class="text-white" for="password">Senha:</label>
-                    <input type="password" class="form-control bg-success text-white border-0" id="password" value="******************">
+                    <label id="label-perfil" class="text-white" for="password">Nova Senha:</label>
+                    <input id="input-perfil" name="password" type="password" class="form-control text-white border-0" value="************">
                 </div>
                 <div id="label-perfil" class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-primary">Salvar</button>
-                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                    <a class="btn btn-secondary" aria-current="location" href="/decks">Cancelar</a>
                 </div>
             </form>
         </div>
-</div>
+    </div>
 </div>
 {% endblock %}

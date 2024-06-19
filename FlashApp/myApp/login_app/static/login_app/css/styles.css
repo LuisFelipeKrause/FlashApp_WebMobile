@@ -136,17 +136,20 @@
 }
 #card-perfil {
     background-color: #0D1526;
-    width: 70vh;
+    width: 80vh;
     padding: 5vh;
-    height: 60vh;
+    height: 70vh;
     border-radius: 20px;
 }
 .logo {
-    margin-right: 18vh;
-    height: 30vh;
+    margin-right: 10vh;
+    height: 60vh;
     width: auto;
 }
 #label-perfil {
     background-color: #0D1526;
     padding: 1vh;
+}
+#input-perfil {
+    background-color: #23DA72;
 }

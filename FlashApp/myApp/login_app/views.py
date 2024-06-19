@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from deck_app.models import Deck
 from django.conf import settings
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
 class Home(View):
@@ -81,6 +85,31 @@ class Logout(View):
         return redirect(settings.LOGIN_URL)  # Essa constante LOGIN_URL foi definida no arquivo settings.py
     
 
-class EditAccount(View):
+class EditAccount(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'login_app/perfil.html')
+        contexto = {
+            'nome': request.user,
+            'email': request.user.email,
+        }
+        return render(request, 'login_app/perfil.html', contexto)
+    
+    def post(self, request):
+        user = request.user
+        new_name = request.POST.get('name')
+        new_email = request.POST.get('email')
+        new_password = request.POST.get('password')
+
+        if new_name and new_name != user.username:
+            user.username = new_name
+        
+        if new_email and new_email != user.email:
+            user.email = new_email
+        
+        if new_password and new_password != '************':
+            user.set_password(new_password)
+            user.save()
+            update_session_auth_hash(request, user)
+
+        user.save()
+        return redirect('/decks')
+        
