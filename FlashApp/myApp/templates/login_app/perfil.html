@@ -1,0 +1,38 @@
+{% extends "../base.html" %}
+
+{% block titulo %}Editar Perfil{% endblock %}
+
+{% load static %}
+{% block importar_css %}<link rel="stylesheet" href="{% static 'login_app/css/styles.css' %}">{% endblock %}
+
+{% block conteudo %}
+<div id="container-principal">
+    <div class="text-center mb-4">
+        <img src="../static/login_app/img/LogoV3.png" alt="FlashApp Logo" class="logo">
+    </div>
+    <div id="container-perfil">
+        <div id="card-perfil">
+            <h3 id="label-perfil" class="text-center text-white mb-4">Minha Conta</h3>
+            <form action="/account/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div id="label-perfil" class="form-group">
+                    <label id="label-perfil" class="text-white" for="name">Nome:</label>
+                    <input id="input-perfil" type="text" name="name" class="form-control text-white border-0" value="{{nome}}">
+                </div>
+                <div id="label-perfil" class="form-group">
+                    <label id="label-perfil" class="text-white" for="email">E-mail:</label>
+                    <input id="input-perfil" type="email" name="email" class="form-control text-white border-0" value="{{email}}">
+                </div>
+                <div id="label-perfil" class="form-group">
+                    <label id="label-perfil" class="text-white" for="password">Nova Senha:</label>
+                    <input id="input-perfil" name="password" type="password" class="form-control text-white border-0" value="************">
+                </div>
+                <div id="label-perfil" class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a class="btn btn-secondary" aria-current="location" href="/decks">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

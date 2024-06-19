@@ -1,6 +1,5 @@
 from django.urls import path
-from . import views
+from login_app.views import EditAccount
 
 urlpatterns = [
-    path('', views.index, name='index')
 ]

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView
 from deck_app.models import Deck, Card
@@ -7,7 +7,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
 from deck_app.serializers import SerializadorDeck
-from django.http import HttpResponseBadRequest, HttpResponse
 from rest_framework.generics import ListAPIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions

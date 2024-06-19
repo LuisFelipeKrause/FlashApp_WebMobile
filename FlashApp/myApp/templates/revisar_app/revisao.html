@@ -34,35 +34,11 @@
     </div>
 
     <script defer>
-        let isFlipped = false;
-        let erros = 0;
-        let acertos = 0;
-        let cardEmRevisao = 0;
-        let valoresFrente = [];
-        let valoresVerso = [];
-        let cards = "{{cards.all|safe}}";
-
-        cards = cards.replace("<QuerySet [", "").replace("]>", "").trim();
-        let cardElements = cards.split(", ");
-        cardElements.forEach(card => {
-            let cleanCard = card.replace(/<Card: /, "").replace(/>/, "").trim();
-            
-            let parts = cleanCard.split(" | ");
-            
-            let valorAntes = parts[0].trim();
-            
-            let valorDepois = parts[1].trim();
-            
-            valoresFrente.push(valorAntes);
-            valoresVerso.push(valorDepois);
-        });
-
         function fazerRevisao(cardEmRevisao){
             if (cardEmRevisao >= valoresFrente.length){
                 let formErro = document.getElementById('erros').textContent = erros;
                 let formAcerto = document.getElementById('acertos').textContent = acertos;
                 document.getElementById('enviar').click();
-                //window.location = "http://127.0.0.1:8000/decks/infodeck/{{deck.id}}/";
             }
 
             let frente = document.getElementById('valor-frente').textContent = valoresFrente[cardEmRevisao];
@@ -114,6 +90,33 @@
         }
 
         // Programa Principal
+        let cards = "{{cards.all|safe}}";
+        if (cards.length < 1){
+            window.location = "http://127.0.0.1:8000/decks/infodeck/{{deck.id}}/";
+        }
+
+        let isFlipped = false;
+        let erros = 0;
+        let acertos = 0;
+        let cardEmRevisao = 0;
+        let valoresFrente = [];
+        let valoresVerso = [];
+
+        cards = cards.replace("<QuerySet [", "").replace("]>", "").trim();
+        let cardElements = cards.split(", ");
+        cardElements.forEach(card => {
+            let cleanCard = card.replace(/<Card: /, "").replace(/>/, "").trim();
+            
+            let parts = cleanCard.split(" | ");
+            
+            let valorAntes = parts[0].trim();
+            
+            let valorDepois = parts[1].trim();
+            
+            valoresFrente.push(valorAntes);
+            valoresVerso.push(valorDepois);
+        });
+        
         fazerRevisao(cardEmRevisao);
     </script>
 {% endblock %}

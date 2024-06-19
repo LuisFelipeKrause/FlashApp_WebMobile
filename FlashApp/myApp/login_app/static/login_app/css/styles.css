@@ -124,3 +124,32 @@
 #cartao-home p {
     font-size: 22px;
 }
+
+/*PÁGINA DE EDITAR PERFIL*/
+#container-principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#container-perfil {
+    width: 100%;
+}
+#card-perfil {
+    background-color: #0D1526;
+    width: 80vh;
+    padding: 5vh;
+    height: 70vh;
+    border-radius: 20px;
+}
+.logo {
+    margin-right: 10vh;
+    height: 60vh;
+    width: auto;
+}
+#label-perfil {
+    background-color: #0D1526;
+    padding: 1vh;
+}
+#input-perfil {
+    background-color: #23DA72;
+}
