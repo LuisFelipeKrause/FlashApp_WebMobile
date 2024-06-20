@@ -10,9 +10,6 @@ class RevisarCards(LoginRequiredMixin, View):
         deck = Deck.objects.filter(id=pk).get()
         cards = Card.objects.filter(deck=pk)
 
-        deck.ultima_revisao = timezone.now()
-        deck.save()
-
         contexto = {
             'deck': deck,
             'cards': cards,
