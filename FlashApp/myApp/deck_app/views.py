@@ -10,6 +10,7 @@ from deck_app.serializers import SerializadorDeck
 from rest_framework.generics import ListAPIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
+from revisar_app.models import Revisao
 
 
 # Create your views here.
@@ -66,12 +67,17 @@ class InfoDeck(LoginRequiredMixin, View):
     def post(self, request, pk):
         erros = request.POST.get('erros-form')
         acertos = request.POST.get('acertos-form')
+        data_revisao = timezone.now()
 
         deck = get_object_or_404(Deck, pk=pk)
 
         deck.erros += int(erros)
         deck.acertos += int(acertos)
+        deck.ultima_revisao = data_revisao
         deck.save()
+
+        revisao = Revisao(usuario=request.user, deck=deck, erros=erros, acertos=acertos, data_revisao=data_revisao)
+        revisao.save()
 
         return self.get(request, pk)
 
