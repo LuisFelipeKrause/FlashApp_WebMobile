@@ -1,0 +1,26 @@
+{% extends "../base.html" %}
+
+{% block titulo %}Adicionar Cards{% endblock %}
+
+{% load static %}
+{% block importar_css %}<link rel="stylesheet" href="{% static 'deck_app/css/styles.css' %}">{% endblock %}
+
+{% block conteudo %}
+    <div id="info-deck-janela">
+        <h1>Adicionar Novo Card</h1>
+        <div class="novo-deck">
+            <form action="/decks/infodeck/{{pk}}/novocard/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="frente-card" class="form-label col-12">Frente</label>
+                {{form.frente}}
+
+                <label for="verso-card" class="form-label col-12">Verso</label>
+                {{form.verso}}
+
+                <button type="submit" class="btn btn-success">Adicionar</button>
+                <!--<button type="submit" class="btn btn-success">Adicionar e continuar adicionando</button>-->
+                <a id="btn-cancelar-novodeck" class="btn btn-secondary" aria-current="page" href="/decks/infodeck/{{pk}}/">Cancelar</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

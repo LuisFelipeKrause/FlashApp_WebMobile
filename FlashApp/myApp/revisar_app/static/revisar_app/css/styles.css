@@ -1,0 +1,87 @@
+/*PÁGINA DE REVISAR CARDS*/
+.hide {
+    display: none;
+}
+#container {
+    height: 90%;
+    width: 95%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color:#23DA72;
+}
+#card {
+    height: 60%;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+    border-radius: 20px;
+    background-color: white;
+    perspective: 1000px;
+    transition: transform 0.4s;
+}
+#card-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+#card.flipped {
+    transform: rotateY(180deg);
+    transition: 0.4s;
+}
+#frente, #verso {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+#card.flipped #frente {
+    opacity: 0;
+}
+#card.flipped #verso {
+    opacity: 1;
+}
+#verso {
+    transform: rotateY(180deg);
+    opacity: 0;
+}
+#buttons {
+    margin-top: 5vh;
+    font-size: xx-large;
+}
+.btn-revisao {
+    height: 12vh;
+    width: 18vh;
+}
+
+/*PÁGINA DE ESTATÍSTICAS*/
+#nome-deck {
+    color: white;
+    margin-left: 5vh;
+    margin-top: 3vh;
+}
+#container-estatisticas {
+    height: 100%;
+    width: 100%;
+    justify-items: center;
+}
+#content-estatisticas {
+    display: flex;
+    width: 90%;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+}
+#estatisticas-escritas {
+    color: white;
+    margin: 5vh;
+}

@@ -1,0 +1,122 @@
+{% extends "../base.html" %}
+
+{% block titulo %}Revisão{% endblock %}
+
+{% load static %}
+
+{% block importar_css %}<link rel="stylesheet" href="{% static 'revisar_app/css/styles.css' %}">{% endblock %}
+
+{% block conteudo %}
+    <div id="container">
+        <h2 id="acertos-mostrador" style="color: white;"></h2>
+        <h2 id="erros-mostrador" style="color: white;"></h2>
+        <div id="card">
+            <div id="card-content">
+                <div id="frente" class="">
+                    <p id="valor-frente"></p>
+                </div>
+                <div id="verso" class="hide">
+                    <p id="valor-verso"></p>
+                </div>
+            </div>
+        </div>
+        <div id="buttons">
+            <button onclick="contarErro()" class="btn btn-danger btn-revisao">Errei</button>
+            <button onclick="girarCard()" class="btn btn-primary btn-revisao">↻</button>
+            <button onclick="contarAcerto()" class="btn btn-success btn-revisao">Acertei</button>
+        </div>
+        <form id="dados" method="post" action="{% url 'info-deck' pk=deck.id %}" hidden>
+            {% csrf_token %}
+            <textarea name="erros-form" id="erros"></textarea>
+            <textarea name="acertos-form" id="acertos"></textarea>
+            <button id="enviar" type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <script defer>
+        function fazerRevisao(cardEmRevisao){
+            if (cardEmRevisao >= valoresFrente.length){
+                let formErro = document.getElementById('erros').textContent = erros;
+                let formAcerto = document.getElementById('acertos').textContent = acertos;
+                document.getElementById('enviar').click();
+            }
+
+            let frente = document.getElementById('valor-frente').textContent = valoresFrente[cardEmRevisao];
+            let verso = document.getElementById('valor-verso').textContent = valoresVerso[cardEmRevisao];
+            let acertosMostrador = document.getElementById('acertos-mostrador').textContent = "Acertos: " + acertos;
+            let errosMostrador = document.getElementById('erros-mostrador').textContent = "Erros: " + erros;
+        }
+    
+        function girarCard() {
+            var card = document.getElementById('card');
+            var frontContent = document.getElementById('frente');
+            var backContent = document.getElementById('verso');
+
+            if (!isFlipped) {
+                card.classList.add('flipped');
+                frontContent.classList.add('hide');
+                backContent.classList.remove('hide');
+            } else {
+                backContent.classList.add('hide');
+                frontContent.classList.remove('hide');
+                card.classList.remove('flipped');
+            }
+            if (!isFlipped){
+                isFlipped = true;
+            }
+            else{
+                isFlipped = false;
+            }
+        }
+
+        function contarErro(){
+            erros += 1;
+            cardEmRevisao++;
+        
+            if (isFlipped){
+                girarCard();
+            }
+            fazerRevisao(cardEmRevisao);
+        }
+
+        function contarAcerto(){
+            acertos += 1;
+            cardEmRevisao++;
+            
+            if (isFlipped){
+                girarCard();
+            }
+            fazerRevisao(cardEmRevisao);
+        }
+
+        // Programa Principal
+        let cards = "{{cards.all|safe}}";
+        if (cards.length < 1){
+            window.location = "http://127.0.0.1:8000/decks/infodeck/{{deck.id}}/";
+        }
+
+        let isFlipped = false;
+        let erros = 0;
+        let acertos = 0;
+        let cardEmRevisao = 0;
+        let valoresFrente = [];
+        let valoresVerso = [];
+
+        cards = cards.replace("<QuerySet [", "").replace("]>", "").trim();
+        let cardElements = cards.split(", ");
+        cardElements.forEach(card => {
+            let cleanCard = card.replace(/<Card: /, "").replace(/>/, "").trim();
+            
+            let parts = cleanCard.split(" | ");
+            
+            let valorAntes = parts[0].trim();
+            
+            let valorDepois = parts[1].trim();
+            
+            valoresFrente.push(valorAntes);
+            valoresVerso.push(valorDepois);
+        });
+        
+        fazerRevisao(cardEmRevisao);
+    </script>
+{% endblock %}

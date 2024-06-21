@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlashApp</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'login_app/css/styles.css' %}">
+
+    <!-- Bootstrap Framework -->
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap-5.3.3/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+    <div id="main-container-home">
+        <div id="main-content-home">
+            <div id="cartao-home" class="card" style="width: 55vh;">
+                <img src="../static/login_app/img/LogoV3.png" class="card-img-top" alt="Logo FlashApp">
+                <div class="card-body">
+                  <p class="card-text">Bem-vindo(a) à plataforma de estudos FlashApp! Aproveite todos os benefícios que podemos oferecer para melhorar seus estudos.</p>
+                  
+                  <form action="login/" method="get">
+                    <h5>Já possui conta? Faça login:</h5>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                  </form>
+
+                  <form action="signup/" method="get">
+                    <h5>Não possui conta? Faça cadastro:</h5>
+                    <button type="submit" class="btn btn-outline-secondary">Sign up</button>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
