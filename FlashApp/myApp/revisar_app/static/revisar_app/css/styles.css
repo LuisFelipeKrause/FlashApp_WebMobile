@@ -1,3 +1,4 @@
+/*PÁGINA DE REVISAR CARDS*/
 .hide {
     display: none;
 }
@@ -60,4 +61,27 @@
 .btn-revisao {
     height: 12vh;
     width: 18vh;
+}
+
+/*PÁGINA DE ESTATÍSTICAS*/
+#nome-deck {
+    color: white;
+    margin-left: 5vh;
+    margin-top: 3vh;
+}
+#container-estatisticas {
+    height: 100%;
+    width: 100%;
+    justify-items: center;
+}
+#content-estatisticas {
+    display: flex;
+    width: 90%;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+}
+#estatisticas-escritas {
+    color: white;
+    margin: 5vh;
 }
