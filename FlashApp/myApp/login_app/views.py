@@ -6,8 +6,10 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from deck_app.models import Deck
 from django.conf import settings
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 
 
 # Create your views here.
@@ -83,6 +85,25 @@ class Logout(View):
     def get(self, request):
         logout(request)  # Encerra a sessão
         return redirect(settings.LOGIN_URL)  # Essa constante LOGIN_URL foi definida no arquivo settings.py
+    
+
+class LoginAPI(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(
+            data=request.data,
+            context={
+                'request': request
+            }
+        )
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'id': user.id,
+            'nome': user.username,
+            'email': user.email,
+            'token': token.key
+        })
     
 
 class EditAccount(LoginRequiredMixin, View):

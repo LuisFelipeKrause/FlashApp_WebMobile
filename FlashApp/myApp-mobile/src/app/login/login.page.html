@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title id="titulo">Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <img alt="FlashApp logo" src="assets/LogoV3.png" />
+  
+    <ion-item>
+      <ion-input label="E-mail" labelPlacement="stacked" [clearInput]="true" type="email" placeholder="Digite seu e-mail" value=""></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-input label="Senha" labelPlacement="stacked" [clearOnEdit]="true" type="password" placeholder="Digite sua senha"></ion-input>
+    </ion-item>
+  </ion-card>
+  <ion-button expand="block">Login</ion-button>
+  <ion-button expand="block" (click)="cancelarLogin()" color="medium">Cancelar</ion-button>
+</ion-content>
