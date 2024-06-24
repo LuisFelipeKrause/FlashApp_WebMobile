@@ -60,7 +60,7 @@ export class LoginPage implements OnInit {
 
         // Finaliza autenticação e redireciona para interface inicial
         loading.dismiss();
-        this.controle_navegacao.navigateRoot('/home');
+        this.controle_navegacao.navigateRoot('/decks');
       },
       error: async (erro: any) => {
         loading.dismiss();
