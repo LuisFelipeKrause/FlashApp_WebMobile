@@ -42,6 +42,10 @@ public usuario: Usuario = new Usuario();
      }
   }
 
+  async verDecks(){
+    this.controle_navegacao.navigateRoot('/decks');
+  }
+
   async consultarDecksWeb(){
     // Inicializa interface com efeito de carregamento
     const loading = await this.controle_carregamento.create({message: 'Pesquisando...', duration: 60000});
@@ -107,6 +111,42 @@ public usuario: Usuario = new Usuario();
         loading.dismiss();
         const mensagem = await this.controle_toast.create({
           message: `Falha ao excluir o veículo: ${erro.message}`,
+          cssClass: 'ion-text-center',
+          duration: 2000
+        });
+        mensagem.present();
+      }
+    });
+  }
+
+  async realizarLogout() {
+    const loading = await this.controle_carregamento.create({ message: 'Saindo...', duration: 15000 });
+    await loading.present();
+  
+    let http_headers: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization':`Token ${this.usuario.token}`  // Substitua 'this.token' pela variável que armazena o token do usuário
+    });
+  
+    this.http.get(
+      'http://127.0.0.1:8000/api/logout/',  // URL do endpoint de logout
+      {
+        headers: http_headers
+      }
+    ).subscribe({
+      next: async (resposta: any) => {
+        console.log('Logout realizado:', resposta);
+  
+        // Limpar o token localmente ou realizar outras ações de limpeza necessárias
+  
+        await loading.dismiss();
+        this.controle_navegacao.navigateRoot('/home');
+      },
+      error: async (erro: any) => {
+        console.error('Erro ao realizar logout:', erro);
+        await loading.dismiss();
+        const mensagem = await this.controle_toast.create({
+          message: 'Erro ao sair: ' + erro.message,
           cssClass: 'ion-text-center',
           duration: 2000
         });
