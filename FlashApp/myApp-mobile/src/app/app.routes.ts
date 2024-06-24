@@ -22,4 +22,12 @@ export const routes: Routes = [
     path: 'decks',
     loadComponent: () => import('./decks/decks.page').then( m => m.DecksPage)
   },
+  {
+    path: 'adicionar-deck',
+    loadComponent: () => import('./adicionar-deck/adicionar-deck.page').then( m => m.AdicionarDeckPage)
+  },
+  {
+    path: 'revisar',
+    loadComponent: () => import('./revisar/revisar.page').then( m => m.RevisarPage)
+  },
 ];

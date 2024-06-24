@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular/standalone';
 import { IonicModule, LoadingController, ToastController } from '@ionic/angular';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
 import { Usuario } from '../login/usuario.model';
 import { Deck } from './deck.model';
@@ -25,7 +26,8 @@ public usuario: Usuario = new Usuario();
     public storage: Storage,
     public controle_toast: ToastController,
     public controle_navegacao: NavController,
-    public controle_carregamento: LoadingController
+    public controle_carregamento: LoadingController,
+    public router: Router
   ) { }
 
   async ngOnInit() {
@@ -44,6 +46,10 @@ public usuario: Usuario = new Usuario();
 
   async verDecks(){
     this.controle_navegacao.navigateRoot('/decks');
+  }
+
+  async revisarDeck(id: number){
+    this.controle_navegacao.navigateRoot('/revisar');
   }
 
   async consultarDecksWeb(){
@@ -80,6 +86,10 @@ public usuario: Usuario = new Usuario();
         mensagem.present();
       }
     });
+  }
+
+  async adicionarDeck(){
+    this.router.navigate(['/adicionar-deck']);
   }
 
   async excluirDeck(id: number) {

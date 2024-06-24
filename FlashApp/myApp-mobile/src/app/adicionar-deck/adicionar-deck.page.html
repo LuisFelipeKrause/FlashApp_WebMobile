@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-title>Adicionar Deck</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full" class="ion-padding">
+    <ion-card>
+      <form (ngSubmit)="adicionarDeck()" method="post">
+        <ion-item>
+          <ion-label position="floating">Título do Deck</ion-label>
+          <ion-input type="text" [(ngModel)]="instancia.titulo" name="nome" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Descrição do Deck (Opcional)</ion-label>
+          <ion-textarea rows="4" [(ngModel)]="instancia.descricao" name="descricao"></ion-textarea>
+        </ion-item>
+
+        <ion-button color="success" type="submit" expand="block">Adicionar Deck</ion-button>
+      </form>
+    </ion-card>
+  </ion-list>
+</ion-content>

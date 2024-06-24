@@ -6,7 +6,6 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-      <ion-button expand="block" color="success" (click)="verDecks()">Meus Decks</ion-button>
       <ion-button expand="block" color="success" (click)="realizarLogout()">Sair</ion-button>
     </ion-content>
   </ion-menu>
@@ -17,11 +16,12 @@
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title id="titulo">Menu</ion-title>
+        <ion-button id="btn-add-deck" color="success" slot="end" (click)="adicionarDeck()">+</ion-button>
       </ion-toolbar>
     </ion-header>
   </div>
 
-  <br><br>
+  <br><br><br><br>
 
   <ion-card>
     <ion-card-header>
@@ -41,9 +41,9 @@
                 <ion-card-content *ngIf="deck.descricao">
                   {{deck.descricao}}
                 </ion-card-content>
-                  <ion-button color="success">Revisar</ion-button>
+                  <ion-button color="success" (click)="revisarDeck(deck.id)">Revisar</ion-button>
                   <ion-button color="success">Estatísticas</ion-button>
-                  <ion-button color="success">Editar</ion-button>
+                  <!--<ion-button color="success">Editar</ion-button>-->
               </ion-card>
             </ion-label>
           </ion-item>
