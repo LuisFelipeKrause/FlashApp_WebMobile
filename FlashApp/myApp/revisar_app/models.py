@@ -5,7 +5,7 @@ from deck_app.models import Deck
 # Create your models here.
 class Revisao(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    deck = models.ForeignKey(Deck, on_delete=models.DO_NOTHING)
+    deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
     erros = models.IntegerField()
     acertos = models.IntegerField()
     data_revisao = models.DateTimeField(auto_created=True)

@@ -7,10 +7,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
 from deck_app.serializers import SerializadorDeck
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, DestroyAPIView, CreateAPIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
 from revisar_app.models import Revisao
+from deck_app.serializers import SerializadorCard
 
 
 # Create your views here.
@@ -173,4 +174,41 @@ class APIListarDecks(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Deck.objects.all()
+        user = self.request.user
+        return Deck.objects.filter(usuario=user)
+    
+
+class APIDeletarDecks(DestroyAPIView):
+    serializer_class = SerializadorDeck
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Deck.objects.filter(usuario=user)
+    
+    def perform_destroy(self, instancia):
+        # Antes de excluir o deck, exclua todos os cards associados a ele
+        cards = Card.objects.filter(deck=instancia)
+        cards.delete()
+        # Agora pode excluir o próprio deck
+        instancia.delete()
+    
+
+class APIAdicionarDeck(CreateAPIView):
+    serializer_class = SerializadorDeck
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(usuario=self.request.user)
+
+
+class APIListarCards(ListAPIView):
+    serializer_class = SerializadorCard
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Card.objects.filter(usuario=user)

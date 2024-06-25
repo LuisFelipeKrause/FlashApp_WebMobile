@@ -4,12 +4,15 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from deck_app.models import Deck
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 
 
 # Create your views here.
@@ -104,6 +107,21 @@ class LoginAPI(ObtainAuthToken):
             'email': user.email,
             'token': token.key
         })
+
+
+class LogoutAPI(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        # Obter o token do usuário autenticado
+        token = request.auth
+        logout(request)
+
+        # Revogar o token
+        token.delete()
+
+        return Response({'mensagem': 'Logout realizado com sucesso.'}, status=status.HTTP_200_OK)
     
 
 class EditAccount(LoginRequiredMixin, View):
