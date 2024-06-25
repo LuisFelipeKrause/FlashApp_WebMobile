@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from login_app.serializers import UsuarioSerializer
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -13,6 +14,8 @@ from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from rest_framework.generics import CreateAPIView
+from rest_framework import permissions
 
 
 # Create your views here.
@@ -89,6 +92,21 @@ class Logout(View):
         logout(request)  # Encerra a sessão
         return redirect(settings.LOGIN_URL)  # Essa constante LOGIN_URL foi definida no arquivo settings.py
     
+
+class APICadastrarUsuario(CreateAPIView):
+    serializer_class = UsuarioSerializer
+    authentication_classes = []
+    permission_classes = []
+
+    def perform_create(self, serializer):
+        username = serializer.validated_data.get('username')
+        email = serializer.validated_data.get('email')
+        password = serializer.validated_data.get('password')
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+
+        return user
+
 
 class LoginAPI(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
