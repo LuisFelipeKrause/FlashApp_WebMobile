@@ -204,11 +204,21 @@ class APIAdicionarDeck(CreateAPIView):
         serializer.save(usuario=self.request.user)
 
 
+class APIAdicionarCard(CreateAPIView):
+    serializer_class = SerializadorCard
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        deck = Deck.objects.filter(id=self.kwargs['pk']).get()
+        serializer.save(deck=deck)
+
+
 class APIListarCards(ListAPIView):
     serializer_class = SerializadorCard
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        user = self.request.user
-        return Card.objects.filter(usuario=user)
+        deck = self.kwargs['pk']
+        return Card.objects.filter(deck=deck)
