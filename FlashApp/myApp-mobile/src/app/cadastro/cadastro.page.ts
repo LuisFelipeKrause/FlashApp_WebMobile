@@ -102,7 +102,7 @@ export class CadastroPage implements OnInit {
           loading.dismiss();
           const mensagem = await this.controle_toast.create({
             message: 'Usuário cadastrado com sucesso!',
-            duration: 2000
+            duration: 3000
           });
           mensagem.present();
           this.fazerLogin();

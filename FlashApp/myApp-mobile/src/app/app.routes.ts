@@ -30,4 +30,8 @@ export const routes: Routes = [
     path: 'revisar',
     loadComponent: () => import('./revisar/revisar.page').then( m => m.RevisarPage)
   },
+  {
+    path: 'revisar/:id',
+    loadComponent: () => import('./revisar/revisar.page').then( m => m.RevisarPage)
+  },
 ];

@@ -1,5 +1,3 @@
-import { Data } from "@angular/router";
-
 export class Deck {
     public id: number;
     public usuario: number;

@@ -18,7 +18,7 @@ import { Deck } from './deck.model';
   providers: [HttpClient, Storage]
 })
 export class DecksPage implements OnInit {
-public usuario: Usuario = new Usuario();
+  public usuario: Usuario = new Usuario();
   public lista_decks: Deck[] = [];
 
   constructor(
@@ -45,7 +45,7 @@ public usuario: Usuario = new Usuario();
   }
 
   async revisarDeck(id: number){
-    this.controle_navegacao.navigateRoot('/revisar');
+    this.router.navigateByUrl(`/revisar/${id}`);
   }
 
   async consultarDecksWeb(){
