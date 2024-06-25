@@ -40,7 +40,6 @@ export class AdicionarDeckPage implements OnInit {
     const usuario = await this.storage.get('usuario');
     if (usuario) {
       this.token_usuario = usuario.token;
-      console.log(this.token_usuario);
     } else {
       console.error('Usuário não encontrado no armazenamento');
     }
@@ -50,25 +49,21 @@ export class AdicionarDeckPage implements OnInit {
     const loading = await this.controle_carregamento.create({ message: 'Adicionando...' });
     await loading.present();
 
+    const usuario = await this.storage.get('usuario');
+
     // Headers com o token de autenticação
     let http_headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Token ${this.token_usuario}`
     });
 
-    // Dados do deck a serem enviados na requisição POST
-    const novoDeck = {
-      titulo: this.instancia.titulo,
-      descricao: this.instancia.descricao || null,
-      erros: 0,
-      acertos: 0,
-      num_cards: 0,
-      desempenho_geral: 0.0,
-    };
-
     // Realiza a requisição POST para adicionar o deck
     this.http.post('http://127.0.0.1:8000/decks/api/novodeck/', 
-      novoDeck, 
+      {
+        usuario: usuario.id,
+        titulo: this.instancia.titulo,
+        descricao: this.instancia.descricao || null,
+      }, 
       { 
         headers: http_headers 
       })
@@ -84,6 +79,7 @@ export class AdicionarDeckPage implements OnInit {
         },
         error: async (erro: any) => {
           loading.dismiss();
+          console.error('Erro ao adicionar deck:', erro); // Exibir o erro completo no console
           const mensagem = await this.controle_toast.create({
             message: `Falha ao adicionar deck: ${erro.error}`,
             duration: 2000

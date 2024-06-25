@@ -71,7 +71,7 @@ export class LoginPage implements OnInit {
         });
         mensagem.present();
       }
-    })
+    });
   }
 
   cancelarLogin() {

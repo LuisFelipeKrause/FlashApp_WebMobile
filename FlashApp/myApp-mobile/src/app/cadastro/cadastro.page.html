@@ -7,15 +7,19 @@
 <ion-content [fullscreen]="true">
   <ion-card>
     <img alt="FlashApp logo" src="assets/LogoV3.png" />
+
+    <ion-item>
+      <ion-input label="Nome" labelPlacement="stacked" name="username" [(ngModel)]="instancia.username" [clearInput]="true" type="text" placeholder="Digite seu nome" value=""></ion-input>
+    </ion-item>
   
     <ion-item>
-      <ion-input label="E-mail" labelPlacement="stacked" [clearInput]="true" type="email" placeholder="Digite seu e-mail" value=""></ion-input>
+      <ion-input label="E-mail" labelPlacement="stacked" name="email" [(ngModel)]="instancia.email" [clearInput]="true" type="email" placeholder="Digite seu e-mail" value=""></ion-input>
     </ion-item>
     
     <ion-item>
-      <ion-input label="Senha" labelPlacement="stacked" [clearOnEdit]="true" type="password" placeholder="Digite sua senha"></ion-input>
+      <ion-input label="Senha" labelPlacement="stacked" name="password" [(ngModel)]="instancia.password" [clearOnEdit]="true" type="password" placeholder="Digite sua senha"></ion-input>
     </ion-item>
   </ion-card>
-  <ion-button expand="block">Cadastrar</ion-button>
+  <ion-button expand="block" (click)="cadastrarUsuario()">Cadastrar</ion-button>
   <ion-button expand="block" (click)="cancelarCadastro()" color="medium">Cancelar</ion-button>
 </ion-content>

@@ -44,17 +44,13 @@ public usuario: Usuario = new Usuario();
      }
   }
 
-  async verDecks(){
-    this.controle_navegacao.navigateRoot('/decks');
-  }
-
   async revisarDeck(id: number){
     this.controle_navegacao.navigateRoot('/revisar');
   }
 
   async consultarDecksWeb(){
     // Inicializa interface com efeito de carregamento
-    const loading = await this.controle_carregamento.create({message: 'Pesquisando...', duration: 60000});
+    const loading = await this.controle_carregamento.create({message: 'Reunindo informações...', duration: 60000});
     await loading.present();
 
     let http_headers: HttpHeaders = new HttpHeaders({
@@ -95,7 +91,7 @@ public usuario: Usuario = new Usuario();
   async excluirDeck(id: number) {
 
     // Inicializa interface com efeito de carregamento
-    const loading = await this.controle_carregamento.create({message: 'Autenticando...', duration: 30000});
+    const loading = await this.controle_carregamento.create({message: 'Excluindo...', duration: 30000});
     await loading.present();
 
     let http_headers: HttpHeaders = new HttpHeaders({
@@ -120,7 +116,7 @@ public usuario: Usuario = new Usuario();
       error: async (erro: any) => {
         loading.dismiss();
         const mensagem = await this.controle_toast.create({
-          message: `Falha ao excluir o veículo: ${erro.message}`,
+          message: `Falha ao excluir o deck: ${erro.message}`,
           cssClass: 'ion-text-center',
           duration: 2000
         });
