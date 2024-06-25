@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { IonIcon } from '@ionic/angular/standalone';
-import { play, add, arrowBackCircle } from 'ionicons/icons';
+import { play, add, arrowBackCircle, trash } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
 @Component({
@@ -12,6 +12,6 @@ import { addIcons } from 'ionicons';
 })
 export class AppComponent {
   constructor() {
-    addIcons({play, add, arrowBackCircle});
+    addIcons({play, add, arrowBackCircle, trash});
   }
 }

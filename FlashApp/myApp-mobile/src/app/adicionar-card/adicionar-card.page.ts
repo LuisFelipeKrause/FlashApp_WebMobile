@@ -79,7 +79,9 @@ export class AdicionarCardPage implements OnInit {
             duration: 2000
           });
           mensagem.present();
-          this.controle_navegacao.navigateRoot(`/revisar/${this.deck_id}`);
+          this.controle_navegacao.navigateRoot(`/revisar/${this.deck_id}`).then(() => {
+            window.location.reload();
+          });
         },
         error: async (erro: any) => {
           loading.dismiss();

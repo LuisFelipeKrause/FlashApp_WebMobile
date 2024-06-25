@@ -18,6 +18,7 @@ import { Deck } from './deck.model';
   providers: [HttpClient, Storage]
 })
 export class DecksPage implements OnInit {
+  alertButtons = ['Action'];
   public usuario: Usuario = new Usuario();
   public lista_decks: Deck[] = [];
 
@@ -89,7 +90,6 @@ export class DecksPage implements OnInit {
   }
 
   async excluirDeck(id: number) {
-
     // Inicializa interface com efeito de carregamento
     const loading = await this.controle_carregamento.create({message: 'Excluindo...', duration: 30000});
     await loading.present();

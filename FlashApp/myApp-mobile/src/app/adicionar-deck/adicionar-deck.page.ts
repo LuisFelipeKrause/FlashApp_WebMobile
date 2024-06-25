@@ -72,7 +72,9 @@ export class AdicionarDeckPage implements OnInit {
             duration: 2000
           });
           mensagem.present();
-          this.controle_navegacao.navigateRoot('/decks');
+          this.controle_navegacao.navigateRoot('/decks').then(() => {
+            window.location.reload();
+          });;
         },
         error: async (erro: any) => {
           loading.dismiss();

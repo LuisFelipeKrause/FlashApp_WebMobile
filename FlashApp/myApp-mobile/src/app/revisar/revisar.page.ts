@@ -87,8 +87,49 @@ export class RevisarPage implements OnInit {
     });
   }
 
-  async adicionarCard(id: number){
-    this.router.navigateByUrl(`/adicionar-card/${id}`);
+  async deletarCard(id: number){
+    // Inicializa interface com efeito de carregamento
+    const loading = await this.controle_carregamento.create({ message: 'Deletando card...', duration: 60000 });
+    await loading.present();
+
+    let httpHeaders: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${this.usuario.token}`
+    });
+
+    // Requisita deleção do card para a API do sistema web
+    this.http.delete(
+      `http://127.0.0.1:8000/decks/api/${this.deck_id}/deletar/${id}/`,
+      {
+        headers: httpHeaders
+      }
+    ).subscribe({
+      next: async () => {
+        this.consultarCardsWeb();
+        loading.dismiss();
+
+        const mensagem = await this.controle_toast.create({
+          message: 'Card deletado com sucesso!',
+          cssClass: 'ion-text-center',
+          duration: 2000
+        });
+        mensagem.present();
+      },
+      error: async (erro: any) => {
+        console.error('Erro ao realizar logout:', erro);
+        await loading.dismiss();
+        const mensagem = await this.controle_toast.create({
+          message: 'Erro ao sair: ' + erro.message,
+          cssClass: 'ion-text-center',
+          duration: 2000
+        });
+        mensagem.present();
+      }
+    });
+  }
+
+  async adicionarCard(){
+    this.router.navigateByUrl(`/adicionar-card/${this.deck_id}`);
   }
 
   async voltarTela(){
