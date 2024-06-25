@@ -4,22 +4,23 @@ import { NavController } from '@ionic/angular/standalone';
 import { IonicModule, LoadingController, ToastController } from '@ionic/angular';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage-angular';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-adicionar-deck',
-  templateUrl: './adicionar-deck.page.html',
-  styleUrls: ['./adicionar-deck.page.scss'],
+  selector: 'app-adicionar-card',
+  templateUrl: './adicionar-card.page.html',
+  styleUrls: ['./adicionar-card.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, HttpClientModule, FormsModule],
   providers: [HttpClient, Storage]
 })
-export class AdicionarDeckPage implements OnInit {
+export class AdicionarCardPage implements OnInit {
   public token_usuario: string | undefined; // Declare token_user como uma string
-  public instancia: {titulo: string, descricao: string|null} = {
-    titulo: '',
-    descricao: ''
+  public deck_id: string | undefined | null;
+  public instancia: {frente: string, verso: string} = {
+    frente: '',
+    verso: ''
   };
 
   constructor(
@@ -28,11 +29,17 @@ export class AdicionarDeckPage implements OnInit {
     public controle_toast: ToastController,
     public controle_navegacao: NavController,
     public controle_carregamento: LoadingController,
-    public router: Router
+    public router: Router,
+    public route: ActivatedRoute,
   ) { }
 
   async ngOnInit() {
     await this.storage.create();
+
+    this.route.paramMap.subscribe(params => {
+      let id = params.get('id');
+      this.deck_id = id;
+    });
 
     const usuario = await this.storage.get('usuario');
     if (usuario) {
@@ -42,7 +49,7 @@ export class AdicionarDeckPage implements OnInit {
     }
   }
 
-  async adicionarDeck() {
+  async adicionarCard() {
     const loading = await this.controle_carregamento.create({ message: 'Adicionando...' });
     await loading.present();
 
@@ -55,11 +62,11 @@ export class AdicionarDeckPage implements OnInit {
     });
 
     // Realiza a requisição POST para adicionar o deck
-    this.http.post('http://127.0.0.1:8000/decks/api/novodeck/', 
+    this.http.post(`http://127.0.0.1:8000/decks/api/novocard/${this.deck_id}/`, 
       {
-        usuario: usuario.id,
-        titulo: this.instancia.titulo,
-        descricao: this.instancia.descricao || null,
+        deck: this.deck_id,
+        frente: this.instancia.frente,
+        verso: this.instancia.verso || null,
       }, 
       { 
         headers: http_headers 
@@ -68,17 +75,17 @@ export class AdicionarDeckPage implements OnInit {
         next: async (resposta: any) => {
           loading.dismiss();
           const mensagem = await this.controle_toast.create({
-            message: 'Deck adicionado com sucesso!',
+            message: 'Card adicionado com sucesso!',
             duration: 2000
           });
           mensagem.present();
-          this.controle_navegacao.navigateRoot('/decks');
+          this.controle_navegacao.navigateRoot(`/revisar/${this.deck_id}`);
         },
         error: async (erro: any) => {
           loading.dismiss();
-          console.error('Erro ao adicionar deck:', erro); // Exibir o erro completo no console
+          console.error('Erro ao adicionar card:', erro); // Exibir o erro completo no console
           const mensagem = await this.controle_toast.create({
-            message: `Falha ao adicionar deck: ${erro.error}`,
+            message: `Falha ao adicionar card: ${erro.error}`,
             duration: 2000
           });
           mensagem.present();
@@ -87,6 +94,6 @@ export class AdicionarDeckPage implements OnInit {
   }
 
   async voltarTela(){
-    this.router.navigate(['/decks']);
+    this.router.navigateByUrl(`/revisar/${this.deck_id}`);
   }
 }

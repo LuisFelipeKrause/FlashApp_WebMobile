@@ -34,4 +34,12 @@ export const routes: Routes = [
     path: 'revisar/:id',
     loadComponent: () => import('./revisar/revisar.page').then( m => m.RevisarPage)
   },
+  {
+    path: 'adicionar-card',
+    loadComponent: () => import('./adicionar-card/adicionar-card.page').then( m => m.AdicionarCardPage)
+  },
+  {
+    path: 'adicionar-card/:id',
+    loadComponent: () => import('./adicionar-card/adicionar-card.page').then( m => m.AdicionarCardPage)
+  },
 ];

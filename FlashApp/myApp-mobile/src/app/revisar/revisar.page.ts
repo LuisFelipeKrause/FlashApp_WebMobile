@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, LoadingController, NavController, ToastController } from '@ionic/angular';
+import { IonicModule, LoadingController, NavController, ToastController} from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage-angular';
 
 import { Usuario } from '../login/usuario.model';
 import { Card } from './card.model';
+
 
 @Component({
   selector: 'app-revisar',
@@ -29,8 +30,8 @@ export class RevisarPage implements OnInit {
     public controle_navegacao: NavController,
     public controle_carregamento: LoadingController,
     public router: Router,
-    public route: ActivatedRoute
-  ) { }
+    public route: ActivatedRoute,
+  ) {}
 
   async ngOnInit() {
     // Verifica se existe registro de configuração para o último usuário autenticado
@@ -40,7 +41,6 @@ export class RevisarPage implements OnInit {
     this.route.paramMap.subscribe(params => {
       let id = params.get('id');
       this.deck_id = id;
-      console.log('ID recebido:', id);
     });
 
     if(registro) {
@@ -71,9 +71,7 @@ export class RevisarPage implements OnInit {
     ).subscribe({
       next: async (resposta: any) => {
 
-        this.lista_cards = resposta;
-        console.log(this.lista_cards);
-        
+        this.lista_cards = resposta;        
         // Finaliza interface com efeito de carregamento
         loading.dismiss();
       },
@@ -87,5 +85,13 @@ export class RevisarPage implements OnInit {
         mensagem.present();
       }
     });
+  }
+
+  async adicionarCard(id: number){
+    this.router.navigateByUrl(`/adicionar-card/${id}`);
+  }
+
+  async voltarTela(){
+    this.router.navigate(['/decks']);
   }
 }

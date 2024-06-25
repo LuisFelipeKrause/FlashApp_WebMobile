@@ -1,23 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="success">
+    <ion-icon (click)="voltarTela()" class="icon-large" name="arrow-back-circle"></ion-icon>
     <ion-title id="titulo">Cards</ion-title>
-    <ion-button id="btn-add-deck" color="success" slot="end">revisar</ion-button>
+    <ion-icon slot="end" name="play" class="icon-large"></ion-icon>
+    <ion-icon slot="end" (click)="adicionarCard(lista_cards[0].deck)" class="icon-large" name="add"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-item-sliding *ngFor="let card of lista_cards">
-      <ion-card color="success">
-        <ion-card-header>
-          <ion-item color="success">
-            <ion-label>{{card.verso}}</ion-label>
-          </ion-item>
-          <ion-item color="success">
-            <ion-label>{{card.frente}}</ion-label>
-          </ion-item>
-        </ion-card-header>
-      </ion-card>
-    </ion-item-sliding>
-  </ion-grid>
+  <ion-item-sliding *ngFor="let card of lista_cards">
+    <ion-card id="card" color="success">
+      <ion-card-header>
+        <ion-item color="success">
+          <ion-label>{{card.verso}}</ion-label>
+        </ion-item>
+        <ion-item color="success">
+          <ion-label>{{card.frente}}</ion-label>
+        </ion-item>
+      </ion-card-header>
+    </ion-card>
+  </ion-item-sliding>
 </ion-content>
