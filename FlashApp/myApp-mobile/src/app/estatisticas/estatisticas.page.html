@@ -1,0 +1,30 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="success">
+    <ion-icon (click)="voltarDecks()" class="icon-large" name="arrow-back-circle"></ion-icon>
+    <ion-title id="titulo">Estatísticas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div>
+    <ion-card *ngFor="let deck of decks" color="success">
+      <ion-card-header color="success">
+        <ion-item *ngIf="ultima_revisao" color="success">
+          <ion-card-title id="ultima-revisao" color="success">Última Revisão: {{ ultima_revisao }}</ion-card-title>
+        </ion-item>
+        <ion-item *ngIf="taxa_erros" color="success">
+          <ion-card-title color="success">Erros: {{ taxa_erros.toFixed(2) }}%</ion-card-title>
+        </ion-item>
+        <ion-item *ngIf="taxa_acertos" color="success">
+          <ion-card-title color="success">Acertos: {{ taxa_acertos.toFixed(2) }}%</ion-card-title>
+        </ion-item>
+        <h1 id="nome-deck"><strong>{{ deck.titulo }}</strong></h1>
+      </ion-card-header>
+    </ion-card>
+    <div style="width: 90%; margin: auto;">
+      <canvas id="barChart"></canvas>
+    </div>
+  </div>
+</ion-content>

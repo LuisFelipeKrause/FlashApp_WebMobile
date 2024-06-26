@@ -4,10 +4,18 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from deck_app.models import Deck
+from login_app.serializers import UsuarioSerializer
 from django.conf import settings
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+from rest_framework.generics import CreateAPIView
+from rest_framework import permissions
 
 
 # Create your views here.
@@ -83,6 +91,55 @@ class Logout(View):
     def get(self, request):
         logout(request)  # Encerra a sessão
         return redirect(settings.LOGIN_URL)  # Essa constante LOGIN_URL foi definida no arquivo settings.py
+    
+
+class APICadastrarUsuario(CreateAPIView):
+    serializer_class = UsuarioSerializer
+    authentication_classes = []
+    permission_classes = []
+
+    def perform_create(self, serializer):
+        username = serializer.validated_data.get('username')
+        email = serializer.validated_data.get('email')
+        password = serializer.validated_data.get('password')
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+
+        return user
+
+
+class LoginAPI(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(
+            data=request.data,
+            context={
+                'request': request
+            }
+        )
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'id': user.id,
+            'nome': user.username,
+            'email': user.email,
+            'token': token.key
+        })
+
+
+class LogoutAPI(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        # Obter o token do usuário autenticado
+        token = request.auth
+        logout(request)
+
+        # Revogar o token
+        token.delete()
+
+        return Response({'mensagem': 'Logout realizado com sucesso.'}, status=status.HTTP_200_OK)
     
 
 class EditAccount(LoginRequiredMixin, View):

@@ -10,7 +10,7 @@ class Deck(models.Model):
     acertos = models.IntegerField(default=0)
     num_cards = models.IntegerField(default=0)
     desempenho_geral = models.FloatField(default=0.0)
-    criado_em = models.DateTimeField(auto_created=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
     ultima_revisao = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
