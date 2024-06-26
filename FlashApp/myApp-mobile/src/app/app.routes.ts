@@ -42,4 +42,12 @@ export const routes: Routes = [
     path: 'adicionar-card/:id',
     loadComponent: () => import('./adicionar-card/adicionar-card.page').then( m => m.AdicionarCardPage)
   },
+  {
+    path: 'fazer-revisao',
+    loadComponent: () => import('./fazer-revisao/fazer-revisao.page').then( m => m.FazerRevisaoPage)
+  },
+  {
+    path: 'fazer-revisao/:id',
+    loadComponent: () => import('./fazer-revisao/fazer-revisao.page').then( m => m.FazerRevisaoPage)
+  },
 ];

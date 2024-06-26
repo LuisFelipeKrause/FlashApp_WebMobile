@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="success">
+    <ion-title id="titulo">Revisão</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="cardAtual">
+    <div class="card">
+      <div class="card-content">
+        <ion-card id="conteudo-card" color="success">
+          <ion-card-header color="success">
+            <ion-card-content id="conteudo-card" color="success">
+              <div class="card-value" [hidden]="showBack">{{ cardAtual.frente }}</div>
+              <div class="card-value" [hidden]="!showBack">{{ cardAtual.verso }}</div>
+            </ion-card-content>
+          </ion-card-header>
+        </ion-card>
+        <div id="btn-revisao" class="card-buttons">
+          <ion-button id="btn-acerto-erro" color="success" (click)="responder(true)">
+            Acertei
+            <ion-icon name="checkmark-circle" class="icon-large"></ion-icon>
+          </ion-button>
+          <ion-button id="btn-acerto-erro" (click)="virarCard()">
+            <ion-icon class="icon-large" name="refresh-outline"></ion-icon>
+          </ion-button>
+          <ion-button id="btn-acerto-erro" color="danger" (click)="responder(false)">
+            Errei
+            <ion-icon class="icon-large" name="close-circle"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!cardAtual">
+    <ion-card color="success">
+      <ion-card-header color="success">
+        <ion-item color="success">
+          <ion-card-title color="success">Erros: {{erros}}</ion-card-title>
+        </ion-item>
+        <ion-item color="success">
+          <ion-card-title color="success">Acertos: {{acertos}}</ion-card-title>
+        </ion-item>
+        <h1><strong>Resultado</strong></h1>
+      </ion-card-header>
+      <ion-button (click)="voltarCards()" id="btn-revisao" color="primary">Voltar aos Cards</ion-button>
+    </ion-card>
+  </div>
+</ion-content>

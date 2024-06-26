@@ -2,7 +2,7 @@
   <ion-toolbar color="success">
     <ion-icon (click)="voltarTela()" class="icon-large" name="arrow-back-circle"></ion-icon>
     <ion-title id="titulo">Cards</ion-title>
-    <ion-icon slot="end" name="play" class="icon-large"></ion-icon>
+    <ion-icon slot="end" (click)="fazerRevisao()" name="play" class="icon-large"></ion-icon>
     <ion-icon slot="end" (click)="adicionarCard()" class="icon-large" name="add"></ion-icon>
   </ion-toolbar>
 </ion-header>

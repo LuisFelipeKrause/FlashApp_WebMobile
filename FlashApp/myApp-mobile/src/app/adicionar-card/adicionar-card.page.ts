@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
 import { Storage } from '@ionic/storage-angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Usuario } from '../login/usuario.model';
 
 @Component({
   selector: 'app-adicionar-card',
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
   providers: [HttpClient, Storage]
 })
 export class AdicionarCardPage implements OnInit {
+  public usuario: Usuario = new Usuario();
   public token_usuario: string | undefined; // Declare token_user como uma string
   public deck_id: string | undefined | null;
   public instancia: {frente: string, verso: string} = {
@@ -41,9 +43,10 @@ export class AdicionarCardPage implements OnInit {
       this.deck_id = id;
     });
 
-    const usuario = await this.storage.get('usuario');
-    if (usuario) {
-      this.token_usuario = usuario.token;
+    let registro = await this.storage.get('usuario');
+    if (registro) {
+      this.usuario = Object.assign(new Usuario(), registro);
+      this.token_usuario = registro.token;
     } else {
       console.error('Usuário não encontrado no armazenamento');
     }
@@ -52,8 +55,6 @@ export class AdicionarCardPage implements OnInit {
   async adicionarCard() {
     const loading = await this.controle_carregamento.create({ message: 'Adicionando...' });
     await loading.present();
-
-    const usuario = await this.storage.get('usuario');
 
     // Headers com o token de autenticação
     let http_headers: HttpHeaders = new HttpHeaders({

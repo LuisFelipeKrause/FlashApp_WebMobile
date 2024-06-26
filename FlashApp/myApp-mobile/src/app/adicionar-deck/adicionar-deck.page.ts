@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
 import { Storage } from '@ionic/storage-angular';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Usuario } from '../login/usuario.model';
 
 @Component({
   selector: 'app-adicionar-deck',
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AdicionarDeckPage implements OnInit {
   public token_usuario: string | undefined; // Declare token_user como uma string
+  public usuario: Usuario = new Usuario();
   public instancia: {titulo: string, descricao: string|null} = {
     titulo: '',
     descricao: ''
@@ -34,9 +36,9 @@ export class AdicionarDeckPage implements OnInit {
   async ngOnInit() {
     await this.storage.create();
 
-    const usuario = await this.storage.get('usuario');
-    if (usuario) {
-      this.token_usuario = usuario.token;
+    let registro = await this.storage.get('usuario');
+    if (registro) {
+      this.token_usuario = registro.token;
     } else {
       console.error('Usuário não encontrado no armazenamento');
     }
