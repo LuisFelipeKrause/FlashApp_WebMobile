@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from login_app.views import Home, Cadastro, Login, Logout, EditAccount
+from login_app.views import Home, Cadastro, Login, Logout, EditAccount, LoginAPI, LogoutAPI, APICadastrarUsuario
 from revisar_app.views import RevisarCards, ExibirEstatisticas
 
 
@@ -29,5 +29,8 @@ urlpatterns = [
     path('logout/', Logout.as_view(), name='logout'),
     path('decks/', include('deck_app.urls'), name='decks'),
     path('decks/infodeck/revisar/<int:pk>/', RevisarCards.as_view(), name='revisar'),
-    path('decks/infodeck/estatisticas/<int:pk>/', ExibirEstatisticas.as_view(), name='estatisticas')
+    path('decks/infodeck/estatisticas/<int:pk>/', ExibirEstatisticas.as_view(), name='estatisticas'),
+    path('autenticacao-api/', LoginAPI.as_view()),
+    path('api/logout/', LogoutAPI.as_view(), name='api-logout'),
+    path('api/signup/', APICadastrarUsuario.as_view(), name='api-signup')
 ]
