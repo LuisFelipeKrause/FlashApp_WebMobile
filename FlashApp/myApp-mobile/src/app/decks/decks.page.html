@@ -42,9 +42,8 @@
                   {{deck.descricao}}
                 </ion-card-content>
                   <ion-button color="success" (click)="revisarDeck(deck.id)">Revisar</ion-button>
-                  <ion-button color="success">Estatísticas</ion-button>
+                  <ion-button color="success" (click)="verEstatisticas(deck.id)">Estatísticas</ion-button>
                   <ion-button color="success" (click)="excluirDeck(deck.id)"><ion-icon name="trash"></ion-icon></ion-button>
-                  <!--<ion-button color="success">Editar</ion-button>-->
               </ion-card>
             </ion-label>
           </ion-item>

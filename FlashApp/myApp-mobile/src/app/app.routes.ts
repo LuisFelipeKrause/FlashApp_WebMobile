@@ -50,4 +50,12 @@ export const routes: Routes = [
     path: 'fazer-revisao/:id',
     loadComponent: () => import('./fazer-revisao/fazer-revisao.page').then( m => m.FazerRevisaoPage)
   },
+  {
+    path: 'estatisticas',
+    loadComponent: () => import('./estatisticas/estatisticas.page').then( m => m.EstatisticasPage)
+  },
+  {
+    path: 'estatisticas/:id',
+    loadComponent: () => import('./estatisticas/estatisticas.page').then( m => m.EstatisticasPage)
+  },
 ];

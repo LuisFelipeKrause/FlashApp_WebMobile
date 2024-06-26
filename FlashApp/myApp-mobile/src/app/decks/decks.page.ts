@@ -160,4 +160,8 @@ export class DecksPage implements OnInit {
       }
     });
   }
+
+  async verEstatisticas(id: number){
+    this.router.navigateByUrl(`/estatisticas/${id}`);
+  }
 }
