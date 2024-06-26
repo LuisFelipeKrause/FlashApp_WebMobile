@@ -17,7 +17,7 @@ import { Deck } from './deck.model';
   imports: [IonicModule, CommonModule, HttpClientModule],
   providers: [HttpClient, Storage]
 })
-export class DecksPage implements OnInit {
+export class DecksPage {
   alertButtons = ['Action'];
   public usuario: Usuario = new Usuario();
   public lista_decks: Deck[] = [];
@@ -31,7 +31,7 @@ export class DecksPage implements OnInit {
     public router: Router
   ) { }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
      // Verifica se existe registro de configuração para o último usuário autenticado
      await this.storage.create();
      const registro = await this.storage.get('usuario');

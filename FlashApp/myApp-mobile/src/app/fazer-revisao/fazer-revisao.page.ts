@@ -17,7 +17,7 @@ import { Card } from '../revisar/card.model';
   imports: [IonicModule, CommonModule, FormsModule, HttpClientModule],
   providers: [HttpClient, Storage]
 })
-export class FazerRevisaoPage implements OnInit {
+export class FazerRevisaoPage {
   public usuario: Usuario = new Usuario();
   cardAtual: Card | undefined;
   deck_id: string | undefined | null;
@@ -40,7 +40,7 @@ export class FazerRevisaoPage implements OnInit {
     this.showBack = false;
   }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     // Verifica se existe registro de configuração para o último usuário autenticado
     await this.storage.create();
     const registro = await this.storage.get('usuario');
@@ -119,7 +119,7 @@ export class FazerRevisaoPage implements OnInit {
     }
   }
 
-  async voltarCards(){
+  async terminarRevisao(){
     let http_headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization':`Token ${this.usuario.token}`

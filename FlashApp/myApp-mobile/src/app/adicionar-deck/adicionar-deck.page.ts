@@ -73,10 +73,8 @@ export class AdicionarDeckPage implements OnInit {
             message: 'Deck adicionado com sucesso!',
             duration: 2000
           });
+          this.router.navigate(['/decks']);
           mensagem.present();
-          this.controle_navegacao.navigateRoot('/decks').then(() => {
-            window.location.reload();
-          });;
         },
         error: async (erro: any) => {
           loading.dismiss();
