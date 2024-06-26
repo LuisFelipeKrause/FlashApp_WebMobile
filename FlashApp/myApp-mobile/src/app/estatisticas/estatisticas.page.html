@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <ion-header [translucent]="true">
   <ion-toolbar color="success">
     <ion-icon (click)="voltarDecks()" class="icon-large" name="arrow-back-circle"></ion-icon>
@@ -21,5 +23,8 @@
         <h1 id="nome-deck"><strong>{{ deck.titulo }}</strong></h1>
       </ion-card-header>
     </ion-card>
+    <div style="width: 90%; margin: auto;">
+      <canvas id="barChart"></canvas>
+    </div>
   </div>
 </ion-content>

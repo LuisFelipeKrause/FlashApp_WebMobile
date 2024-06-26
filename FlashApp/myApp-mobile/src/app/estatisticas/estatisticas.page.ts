@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage-angular';
 
 import { Usuario } from '../login/usuario.model';
 import { Deck } from '../decks/deck.model';
+import { Chart } from 'chart.js/auto'
 
 @Component({
   selector: 'app-estatisticas',
@@ -19,6 +20,7 @@ import { Deck } from '../decks/deck.model';
 })
 export class EstatisticasPage {
   public usuario: Usuario = new Usuario();
+  chart: any;
   deck_id: string | undefined | null;
   decks: Deck[] = [];
   taxa_acertos: number | undefined;
@@ -44,6 +46,11 @@ export class EstatisticasPage {
        let id = params.get('id');
        this.deck_id = id;
      });
+
+     if (this.chart) {
+      console.log(this.chart);
+      this.chart.destroy();
+    }
  
      if(registro) {
        this.usuario = Object.assign(new Usuario(), registro);
@@ -93,6 +100,7 @@ export class EstatisticasPage {
 
         // Construa a string formatada
         this.ultima_revisao = `${dia} de ${mes} de ${ano} às ${hora}:${minutosFormatados}`;
+        this.createBarChart();
         loading.dismiss();
       },
       error: async (erro: any) => {
@@ -103,6 +111,33 @@ export class EstatisticasPage {
           duration: 2000
         });
         mensagem.present();
+      }
+    });
+  }
+
+  createBarChart(): void {
+    const ctx = document.getElementById('barChart') as HTMLCanvasElement;
+    ctx.innerText = "";
+    this.chart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Acertos', 'Erros'],
+        datasets: [{
+          label: '',
+          data: [this.decks[0].acertos, this.decks[0].erros],
+          backgroundColor: [
+            'green',
+            'red',
+          ],
+          borderColor: [
+            'white',
+            'white',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {}
       }
     });
   }
